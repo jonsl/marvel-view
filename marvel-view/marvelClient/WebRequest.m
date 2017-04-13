@@ -22,7 +22,7 @@
     
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url];
 
-    request.HTTPMethod = httpMethod;
+    [request setHTTPMethod:httpMethod];
 
     for (NSString* key in header) {
         [request setValue:[header objectForKey:key] forHTTPHeaderField:key];

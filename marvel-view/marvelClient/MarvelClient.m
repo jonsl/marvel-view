@@ -19,13 +19,15 @@ static long s_timestamp = 1;
 
 @implementation MarvelClient
 
++(NSString*)digest {
+    NSString* md5String = [NSString stringWithFormat:@"%ld%@%@", s_timestamp, [NSString stringWithUTF8String:s_kMarvelPrivateKey], [NSString stringWithUTF8String:s_kMarvelPublicKey]];
+    return [md5String md5];
+}
+
 +(void)performComicsRequest:(WebRequestSuccessBlock)successBlock failureBlock:(WebRequestFailureBlock)failureBlock {
 
-    NSString* md5String = [NSString stringWithFormat:@"%ld%@%@", s_timestamp, [NSString stringWithUTF8String:s_kMarvelPrivateKey], [NSString stringWithUTF8String:s_kMarvelPublicKey]];
-    
-    NSString* urlString = [NSString stringWithFormat:@"%@%@?ts=%ld&apikey=%@&hash=%@", [NSString stringWithUTF8String:s_kMarvelBaseUrl], [NSString stringWithUTF8String:s_kMarvelComicsEndpoint], s_timestamp, [NSString stringWithUTF8String:s_kMarvelPublicKey], [md5String md5]];
+    NSString* urlString = [NSString stringWithFormat:@"%@%@?ts=%ld&apikey=%@&hash=%@", [NSString stringWithUTF8String:s_kMarvelBaseUrl], [NSString stringWithUTF8String:s_kMarvelComicsEndpoint], s_timestamp, [NSString stringWithUTF8String:s_kMarvelPublicKey], [MarvelClient digest]];
 
-    
     [WebRequest performRequest:[NSURL URLWithString:urlString]
                     httpMethod:@"GET"
                         header:nil
@@ -45,7 +47,6 @@ static long s_timestamp = 1;
     }];
 
     ++s_timestamp;
-    
 }
 
 @end
