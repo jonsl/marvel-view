@@ -9,37 +9,39 @@
 #import "ViewController.h"
 #import "MarvelClient.h"
 
-@interface ViewController ()
+@interface ViewController()
 
 @end
 
 @implementation ViewController {
-    
+
 }
 
-- (void)viewDidLoad {
+-(void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
-    
-    [MarvelClient performComicsRequest:^(NSData *data, NSURLResponse *response) {
-        
-        NSLog(@"success, data is {%@}", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        
-    } failureBlock:^(NSError *error) {
+
+    [MarvelClient performComicsRequest:0
+                                 limit:0
+                               orderBy:kOrderByOnSaleDate
+                              sortType:Ascending
+                          successBlock:^(NSDictionary *data, NSURLResponse *response) {
+
+        NSLog(@"success, data is:\n%@", data);
+
+    }                     failureBlock:^(NSError* error) {
 
         NSLog(@"failure, error is {%@}", [error description]);
-        
+
     }];
-    
-    
+
+
 }
 
-
-- (void)didReceiveMemoryWarning {
+-(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

@@ -9,7 +9,7 @@
 #import "WebRequest.h"
 
 @implementation WebRequest {
-    
+
 }
 
 +(void)performRequest:(NSURL*)url
@@ -19,7 +19,6 @@
          successBlock:(WebRequestSuccessBlock)successBlock
          failureBlock:(WebRequestFailureBlock)failureBlock {
 
-    
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url];
 
     [request setHTTPMethod:httpMethod];
@@ -31,27 +30,32 @@
 
     NSURLSessionConfiguration* configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
 //    configuration.HTTPAdditionalHeaders = header;
-    
+
     NSURLSession* session = [NSURLSession sessionWithConfiguration:configuration];
-    
+
     NSURLSessionDataTask* task = [session dataTaskWithRequest:request
-                                            completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                            completionHandler:^(NSData* _Nullable data, NSURLResponse* _Nullable response, NSError* _Nullable error) {
 
-        if (error) {
-            
-            if (failureBlock) {
-                failureBlock(error);
-            }
-            
-        } else {
-            
-            if (successBlock) {
-                successBlock(data, response);
-            }
+                                                if (error) {
 
-        }
-        
-    }];
+                                                    if (failureBlock) {
+                                                        failureBlock(error);
+                                                    }
+
+                                                } else {
+
+                                                    if (successBlock) {
+                                                        
+                                                        NSError* error = nil;
+                                                        
+                                                        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                                                        
+                                                        successBlock(json, response);
+                                                    }
+
+                                                }
+
+                                            }];
 
     [task resume];
 }

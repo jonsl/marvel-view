@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^WebRequestSuccessBlock)(NSData* data, NSURLResponse* response);
+typedef void (^WebRequestSuccessBlock)(id data, NSURLResponse* response);
 
 typedef void (^WebRequestFailureBlock)(NSError* error);
 
