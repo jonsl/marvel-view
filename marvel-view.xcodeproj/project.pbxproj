@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		33557FEC1E9F6E26007B5194 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 33557FEB1E9F6E26007B5194 /* main.m */; };
 		33557FEF1E9F6E26007B5194 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33557FEE1E9F6E26007B5194 /* AppDelegate.m */; };
-		33557FF21E9F6E26007B5194 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33557FF11E9F6E26007B5194 /* ViewController.m */; };
 		33557FF51E9F6E26007B5194 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33557FF31E9F6E26007B5194 /* Main.storyboard */; };
 		33557FF81E9F6E26007B5194 /* marvel_view.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33557FF61E9F6E26007B5194 /* marvel_view.xcdatamodeld */; };
 		33557FFA1E9F6E26007B5194 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33557FF91E9F6E26007B5194 /* Assets.xcassets */; };
 		33557FFD1E9F6E26007B5194 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33557FFB1E9F6E26007B5194 /* LaunchScreen.storyboard */; };
 		335580071E9F73F0007B5194 /* WebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 335580061E9F73F0007B5194 /* WebRequest.m */; };
+		335CD7A71EA4CEE100EF4BD5 /* ComicsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335CD7A61EA4CEE100EF4BD5 /* ComicsTableViewController.m */; };
+		335CD7AB1EA4DB0F00EF4BD5 /* ComicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335CD7AA1EA4DB0F00EF4BD5 /* ComicDetailViewController.m */; };
 		337C73D11E9F898500F0C9FB /* Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C73D01E9F898500F0C9FB /* Extensions.m */; };
 		337C73D41E9F8B0200F0C9FB /* MarvelClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C73D31E9F8B0200F0C9FB /* MarvelClient.m */; };
 /* End PBXBuildFile section */
@@ -24,8 +25,6 @@
 		33557FEB1E9F6E26007B5194 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		33557FED1E9F6E26007B5194 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		33557FEE1E9F6E26007B5194 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		33557FF01E9F6E26007B5194 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		33557FF11E9F6E26007B5194 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		33557FF41E9F6E26007B5194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		33557FF71E9F6E26007B5194 /* marvel_view.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = marvel_view.xcdatamodel; sourceTree = "<group>"; };
 		33557FF91E9F6E26007B5194 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -33,6 +32,10 @@
 		33557FFE1E9F6E26007B5194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		335580051E9F73F0007B5194 /* WebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebRequest.h; path = marvelClient/WebRequest.h; sourceTree = "<group>"; };
 		335580061E9F73F0007B5194 /* WebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebRequest.m; path = marvelClient/WebRequest.m; sourceTree = "<group>"; };
+		335CD7A51EA4CEE100EF4BD5 /* ComicsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComicsTableViewController.h; path = viewControllers/ComicsTableViewController.h; sourceTree = "<group>"; };
+		335CD7A61EA4CEE100EF4BD5 /* ComicsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComicsTableViewController.m; path = viewControllers/ComicsTableViewController.m; sourceTree = "<group>"; };
+		335CD7A91EA4DB0F00EF4BD5 /* ComicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComicDetailViewController.h; path = viewControllers/ComicDetailViewController.h; sourceTree = "<group>"; };
+		335CD7AA1EA4DB0F00EF4BD5 /* ComicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComicDetailViewController.m; path = viewControllers/ComicDetailViewController.m; sourceTree = "<group>"; };
 		337C73CF1E9F898500F0C9FB /* Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extensions.h; path = extensions/Extensions.h; sourceTree = "<group>"; };
 		337C73D01E9F898500F0C9FB /* Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Extensions.m; path = extensions/Extensions.m; sourceTree = "<group>"; };
 		337C73D21E9F8B0200F0C9FB /* MarvelClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarvelClient.h; path = marvelClient/MarvelClient.h; sourceTree = "<group>"; };
@@ -69,12 +72,11 @@
 		33557FE91E9F6E26007B5194 /* marvel-view */ = {
 			isa = PBXGroup;
 			children = (
+				335CD7A81EA4CEEF00EF4BD5 /* viewControllers */,
 				337C73CC1E9F88A000F0C9FB /* extensions */,
 				335580041E9F73A2007B5194 /* marvelClient */,
 				33557FED1E9F6E26007B5194 /* AppDelegate.h */,
 				33557FEE1E9F6E26007B5194 /* AppDelegate.m */,
-				33557FF01E9F6E26007B5194 /* ViewController.h */,
-				33557FF11E9F6E26007B5194 /* ViewController.m */,
 				33557FF31E9F6E26007B5194 /* Main.storyboard */,
 				33557FF91E9F6E26007B5194 /* Assets.xcassets */,
 				33557FFB1E9F6E26007B5194 /* LaunchScreen.storyboard */,
@@ -102,6 +104,17 @@
 				337C73D31E9F8B0200F0C9FB /* MarvelClient.m */,
 			);
 			name = marvelClient;
+			sourceTree = "<group>";
+		};
+		335CD7A81EA4CEEF00EF4BD5 /* viewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				335CD7A51EA4CEE100EF4BD5 /* ComicsTableViewController.h */,
+				335CD7A61EA4CEE100EF4BD5 /* ComicsTableViewController.m */,
+				335CD7A91EA4DB0F00EF4BD5 /* ComicDetailViewController.h */,
+				335CD7AA1EA4DB0F00EF4BD5 /* ComicDetailViewController.m */,
+			);
+			name = viewControllers;
 			sourceTree = "<group>";
 		};
 		337C73CC1E9F88A000F0C9FB /* extensions */ = {
@@ -186,8 +199,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				337C73D41E9F8B0200F0C9FB /* MarvelClient.m in Sources */,
-				33557FF21E9F6E26007B5194 /* ViewController.m in Sources */,
+				335CD7AB1EA4DB0F00EF4BD5 /* ComicDetailViewController.m in Sources */,
 				33557FF81E9F6E26007B5194 /* marvel_view.xcdatamodeld in Sources */,
+				335CD7A71EA4CEE100EF4BD5 /* ComicsTableViewController.m in Sources */,
 				335580071E9F73F0007B5194 /* WebRequest.m in Sources */,
 				337C73D11E9F898500F0C9FB /* Extensions.m in Sources */,
 				33557FEF1E9F6E26007B5194 /* AppDelegate.m in Sources */,

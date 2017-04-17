@@ -70,7 +70,8 @@ static long s_timestamp = 1;
                       } else {
                           
                           if (failureBlock) {
-                              failureBlock([MarvelClient errorWithCode:-1 reason:@"Returned object is not a dictionary"]);
+                              failureBlock([MarvelClient errorWithCode:-1
+                                                                reason:@"Returned object is not a dictionary"]);
                           }
                       }
 

@@ -19,7 +19,9 @@
          successBlock:(WebRequestSuccessBlock)successBlock
          failureBlock:(WebRequestFailureBlock)failureBlock {
 
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy   // use etag transparently
+                                                       timeoutInterval:60];
 
     [request setHTTPMethod:httpMethod];
 
