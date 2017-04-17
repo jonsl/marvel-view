@@ -44,7 +44,7 @@
         <!--Comic Detail-->
         <scene sceneID="uBK-Gh-Hpo">
             <objects>
-                <viewController id="GJs-J1-Wcn" userLabel="Comic Detail" sceneMemberID="viewController">
+                <viewController id="GJs-J1-Wcn" userLabel="Comic Detail" customClass="ComicDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ddu-Rs-4EX"/>
                         <viewControllerLayoutGuide type="bottom" id="Tf8-gP-MmX"/>
