@@ -19,4 +19,6 @@
 
 @property (readonly, nonatomic) NSManagedObjectContext* context;
 
+@property (readonly, nonatomic) NSUInteger comicsCount;
+
 @end

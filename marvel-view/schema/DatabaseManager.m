@@ -36,7 +36,7 @@
     [fetchRequest setIncludesPropertyValues:NO];
     
     NSArray* comics = [[DatabaseManager sharedManager].context executeFetchRequest:fetchRequest error:error];
-    if (*error) {
+    if (error && *error) {
         return ;
     }
 
@@ -46,6 +46,24 @@
         
     }
     [[DatabaseManager sharedManager].context save:error];
+}
+
+-(NSUInteger)comicsCount {
+    NSFetchRequest* fetchRequest = [Comic fetchRequest];
+    [fetchRequest setIncludesPropertyValues:NO];
+    [fetchRequest setIncludesSubentities:NO];
+    
+    NSError* error = nil;
+    NSUInteger count = [[DatabaseManager sharedManager].context countForFetchRequest:fetchRequest error:&error];
+    if (error) {
+        NSLog(@"DatabaseManager: comicsCount: error: %@", [error description]);
+        return 0;
+    }
+    if (count == NSNotFound) {
+        NSLog(@"DatabaseManager: comicsCount: NSNotFound");
+        return 0;
+    }
+    return count;
 }
 
 -(NSManagedObject*)insertNewComicEntityFromDictionary:(NSDictionary*)comic {

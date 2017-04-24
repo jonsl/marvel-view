@@ -9,6 +9,9 @@
 #import "ComicsTableViewController.h"
 #import "MarvelClient.h"
 #import "DatabaseManager.h"
+#import "Comic+CoreDataProperties.h"
+
+static NSString* kNewDataNotification = @"NewDataNotification";
 
 @interface ComicsTableViewController ()
 
@@ -24,78 +27,44 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    
-    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Comic"];
-    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"onSaleDate" ascending:YES]]];
 
-//    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"saleByDate = %@"];
-//    fetchRequest.predicate = predicate;
     
-    NSAsynchronousFetchRequest* asyncFetch = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:fetchRequest
-                                                                                      completionBlock:^(NSAsynchronousFetchResult* result) {
-
-        if (result.finalResult) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                
-                
-                [self.tableView reloadData];
-                
-            });
-            
-            
-        }
-        
-    }];
-
-    __block NSError* error = nil;
-
-    [[DatabaseManager sharedManager].context performBlock:^{
-       
-        
-        NSAsynchronousFetchResult* result = [[DatabaseManager sharedManager].context executeRequest:asyncFetch error:&error];
-        
-        if (error) {
-            
-            
-            
-        }
-        
-        
-    }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDataNotification:) name:kNewDataNotification object:nil];
+    
+//    [[DatabaseManager sharedManager] clear:nil];
     
     
+    NSUInteger comicsCount = [DatabaseManager sharedManager].comicsCount;
     
-    
-    NSArray* result = [[DatabaseManager sharedManager].context executeFetchRequest:fetchRequest error:&error];
-    
-    if (error) {
-        return ;
-    }
-    
-    if (result.count > 0) {
-        
-    } else {
+    if (comicsCount == 0) {
         
         [MarvelClient performComicsRequest:0
-                                     limit:100
+                                     limit:20
                                    orderBy:kOrderByOnSaleDate
                                   sortType:Ascending
                               successBlock:^(NSDictionary *data, NSURLResponse *response) {
                                   
-                                  NSLog(@"success, data is:\n%@", data);
+                                  NSAssert(data, @"data is nil");
                                   
-                                  [self newServerData:data];
+                                  [[NSNotificationCenter defaultCenter] postNotificationName:kNewDataNotification object:self userInfo:data];
                                   
                               }                     failureBlock:^(NSError* error) {
                                   
                                   NSLog(@"failure, error is {%@}", [error description]);
                                   
                               }];
+    } else {
+        
+        [self fetchData];
+        
     }
     
+}
+
+-(void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,43 +72,76 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)newServerData:(NSDictionary*)data {
+-(void)newDataNotification:(NSNotification*)notification {
+    
+    if ([[notification name] isEqualToString:kNewDataNotification]) {
 
-    if (data) {
+        NSDictionary* data = [notification userInfo];
+        NSAssert(data, @"data is nil");
         
         NSArray* comics = data[@"results"];
         
         @try {
-
+            
             for (NSDictionary* comic in comics) {
-
+                
                 [[DatabaseManager sharedManager] insertNewComicEntityFromDictionary:comic];
             }
             
         } @catch (NSException *exception) {
             
             NSLog(@"exception: %@", [exception description]);
-
+            
         } @finally {
-
+            
             NSError* error = nil;
             [[DatabaseManager sharedManager].context save:&error];
             if (!error) {
                 
-                //            dispatch_async(dispatch_get_main_queue(), ^void(void){
-                //
-                //                [self.tableView reloadData];
-                //                
-                //            });
+                [self fetchData];
+                
             }
         }
         
         
     }
+    
+}
 
+-(void)fetchData {
     
+    __block NSError* error = nil;
+
+    NSFetchRequest* fetchRequest = [Comic fetchRequest];
+    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"onSaleDate" ascending:YES]]];
     
+    //    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"saleByDate = %@"];
+    //    fetchRequest.predicate = predicate;
     
+    NSAsynchronousFetchRequest* asyncFetch = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:fetchRequest
+                                                                                      completionBlock:^(NSAsynchronousFetchResult* result) {
+                                                                                          
+                                                                                          if (result.finalResult) {
+
+                                                                                              dispatch_async(dispatch_get_main_queue(), ^{
+
+                                                                                                  [self.tableView reloadData];
+                                                                                                  
+                                                                                              });
+
+                                                                                          }
+                                                                                          
+                                                                                      }];
+    
+    [[DatabaseManager sharedManager].context performBlockAndWait:^{
+
+        NSAsynchronousFetchResult* result = [[DatabaseManager sharedManager].context executeRequest:asyncFetch error:&error];
+        
+        if (error) {
+
+        }
+
+    }];
     
 }
 
