@@ -12,12 +12,20 @@
 #import "Comic+CoreDataProperties.h"
 
 static NSString* kNewDataNotification = @"NewDataNotification";
+static NSUInteger const kRequestLimit = 10;
 
 @interface ComicsTableViewController ()
 
+@property (strong, nonatomic) NSFetchedResultsController* fetchedResultsController;
+
 @end
 
-@implementation ComicsTableViewController
+@implementation ComicsTableViewController {
+    
+    NSUInteger _requestOffset;
+    NSUInteger _fetchOffset;
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,32 +41,22 @@ static NSString* kNewDataNotification = @"NewDataNotification";
     
 //    [[DatabaseManager sharedManager] clear:nil];
     
-    
     NSUInteger comicsCount = [DatabaseManager sharedManager].comicsCount;
     
     if (comicsCount == 0) {
-        
-        [MarvelClient performComicsRequest:0
-                                     limit:20
-                                   orderBy:kOrderByOnSaleDate
-                                  sortType:Ascending
-                              successBlock:^(NSDictionary *data, NSURLResponse *response) {
-                                  
-                                  NSAssert(data, @"data is nil");
-                                  
-                                  [[NSNotificationCenter defaultCenter] postNotificationName:kNewDataNotification object:self userInfo:data];
-                                  
-                              }                     failureBlock:^(NSError* error) {
-                                  
-                                  NSLog(@"failure, error is {%@}", [error description]);
-                                  
-                              }];
+
+        [self requestData];
+
     } else {
         
         [self fetchData];
         
     }
     
+}
+
+- (void)viewDidUnload {
+    self.fetchedResultsController = nil;
 }
 
 -(void)dealloc {
@@ -96,16 +94,30 @@ static NSString* kNewDataNotification = @"NewDataNotification";
             
             NSError* error = nil;
             [[DatabaseManager sharedManager].context save:&error];
-            if (!error) {
-                
-                [self fetchData];
-                
-            }
+            
         }
-        
-        
     }
-    
+}
+
+-(void)requestData {
+
+    [MarvelClient performComicsRequestWithCount:100
+                                          limit:kRequestLimit
+                                        orderBy:kOrderByOnSaleDate
+                                  sortOrderType:Descending
+                                   successBlock:^(NSDictionary *data, NSURLResponse *response) {
+                                       
+                                       [[NSNotificationCenter defaultCenter] postNotificationName:kNewDataNotification
+                                                                                           object:self
+                                                                                         userInfo:data];
+                                       
+                                   }
+                                   failureBlock:^(NSError *error) {
+                                       
+                                       NSLog(@"requestData failed with: %@", [error description]);
+
+                                   }];
+
 }
 
 -(void)fetchData {

@@ -10,7 +10,7 @@
 
 typedef void(^ComicRequestSuccessBlock)(NSDictionary* data, NSURLResponse* response);
 
-typedef NS_ENUM(NSInteger, SortType) {
+typedef NS_ENUM(NSInteger, SortOrderType) {
     
     Ascending = 0,
     
@@ -26,11 +26,11 @@ extern NSString* const kOrderByModified;
 
 @interface MarvelClient : NSObject
 
-+(void)performComicsRequest:(int)offset
-                      limit:(int)limit
-                    orderBy:(NSString*)orderBy
-                   sortType:(SortType)sortType
-               successBlock:(ComicRequestSuccessBlock)successBlock
-               failureBlock:(WebRequestFailureBlock)failureBlock;
++(void)performComicsRequestWithCount:(int)count
+                               limit:(int)limit
+                             orderBy:(NSString*)orderBy
+                       sortOrderType:(SortOrderType)sortOrderType
+                        successBlock:(ComicRequestSuccessBlock)successBlock
+                        failureBlock:(WebRequestFailureBlock)failureBlock;
 
 @end

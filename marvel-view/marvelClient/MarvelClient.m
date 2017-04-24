@@ -32,57 +32,78 @@ static long s_timestamp = 1;
     return [md5String md5];
 }
 
-+(void)performComicsRequest:(int)offset
-                      limit:(int)limit
-                    orderBy:(NSString*)orderBy
-                   sortType:(SortType)sortType
-               successBlock:(ComicRequestSuccessBlock)successBlock
-               failureBlock:(WebRequestFailureBlock)failureBlock {
++(void)performComicsRequestWithCount:(int)count
+                               limit:(int)limit
+                             orderBy:(NSString*)orderBy
+                       sortOrderType:(SortOrderType)sortOrderType
+                        successBlock:(ComicRequestSuccessBlock)successBlock
+                        failureBlock:(WebRequestFailureBlock)failureBlock {
+
+    NSURLSessionConfiguration* configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    //    configuration.HTTPAdditionalHeaders = header;
+    
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:configuration];
+    
 
     NSMutableString* urlString = [NSMutableString stringWithFormat:@"%@%@?ts=%ld&apikey=%@&hash=%@", [NSString stringWithUTF8String:s_kMarvelBaseUrl], [NSString stringWithUTF8String:s_kMarvelComicsEndpoint], s_timestamp, [NSString stringWithUTF8String:s_kMarvelPublicKey], [MarvelClient digest]];
 
-    if (offset > 0) {
-        [urlString appendFormat:@"&offset=%i", offset];
-    }
-    
     if (limit > 0) {
         [urlString appendFormat:@"&limit=%i", limit];
     }
     if (orderBy) {
-        if (sortType == Descending) {
+        if (sortOrderType == Descending) {
             [urlString appendFormat:@"&orderBy=-%@", orderBy];
         } else {
             [urlString appendFormat:@"&orderBy=%@", orderBy];
         }
     }
+    
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+    
+    for (int offset = 0; offset < count; offset += limit) {
 
-    [WebRequest performRequest:[NSURL URLWithString:urlString]
-                    httpMethod:@"GET"
-                        header:nil
-                          body:nil
-                  successBlock:^(id data, NSURLResponse* response) {
-                      
-                      if ([data isKindOfClass:[NSDictionary class]]) {
-                          
-                          if (successBlock) {
-                              successBlock([data objectForKey:@"data"], response);
-                          }
-                      } else {
-                          
-                          if (failureBlock) {
-                              failureBlock([MarvelClient errorWithCode:-1
-                                                                reason:@"Returned object is not a dictionary"]);
-                          }
-                      }
+        [urlString appendFormat:@"&offset=%i", offset];
+        
+        [request setURL:[NSURL URLWithString:urlString]];
 
-
-                  } failureBlock:^(NSError* error) {
-
-                if (failureBlock) {
-                    failureBlock(error);
-                }
-
-            }];
+        NSURLSessionDataTask* task = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData* _Nullable data, NSURLResponse* _Nullable response, NSError* _Nullable error) {
+                                                    
+                                                    if (error) {
+                                                        
+                                                        if (failureBlock) {
+                                                            failureBlock(error);
+                                                        }
+                                                        
+                                                    } else {
+                                                        
+                                                        if (successBlock) {
+                                                            
+                                                            NSError* error = nil;
+                                                            
+                                                            id jsonData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                                                            if ([jsonData isKindOfClass:[NSDictionary class]]) {
+                                                                
+                                                                if (successBlock) {
+                                                                    successBlock(jsonData[@"data"], response);
+                                                                }
+                                                            } else {
+                                                                
+                                                                if (failureBlock) {
+                                                                    failureBlock([MarvelClient errorWithCode:-1
+                                                                                                      reason:@"Returned object is not a dictionary"]);
+                                                                }
+                                                            }
+                                                        }
+                                                        
+                                                    }
+                                                    
+                                                }];
+        
+        [task resume];
+    }
 
     ++s_timestamp;
 }
