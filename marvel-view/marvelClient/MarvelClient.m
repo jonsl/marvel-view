@@ -65,7 +65,7 @@ static long s_timestamp = 1;
                       if ([data isKindOfClass:[NSDictionary class]]) {
                           
                           if (successBlock) {
-                              successBlock(data, response);
+                              successBlock([data objectForKey:@"data"], response);
                           }
                       } else {
                           

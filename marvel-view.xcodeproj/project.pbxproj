@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		33557FEC1E9F6E26007B5194 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 33557FEB1E9F6E26007B5194 /* main.m */; };
 		33557FEF1E9F6E26007B5194 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 33557FEE1E9F6E26007B5194 /* AppDelegate.m */; };
 		33557FF51E9F6E26007B5194 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33557FF31E9F6E26007B5194 /* Main.storyboard */; };
 		33557FF81E9F6E26007B5194 /* marvel_view.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33557FF61E9F6E26007B5194 /* marvel_view.xcdatamodeld */; };
@@ -16,8 +15,10 @@
 		335580071E9F73F0007B5194 /* WebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 335580061E9F73F0007B5194 /* WebRequest.m */; };
 		335CD7A71EA4CEE100EF4BD5 /* ComicsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335CD7A61EA4CEE100EF4BD5 /* ComicsTableViewController.m */; };
 		335CD7AB1EA4DB0F00EF4BD5 /* ComicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335CD7AA1EA4DB0F00EF4BD5 /* ComicDetailViewController.m */; };
+		3364693A1EA8E30200408BAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 33557FEB1E9F6E26007B5194 /* main.m */; };
 		337C73D11E9F898500F0C9FB /* Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C73D01E9F898500F0C9FB /* Extensions.m */; };
 		337C73D41E9F8B0200F0C9FB /* MarvelClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C73D31E9F8B0200F0C9FB /* MarvelClient.m */; };
+		339C23AD1EADF5FF00D7835F /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 339C23AC1EADF5FF00D7835F /* DatabaseManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,10 @@
 		337C73D01E9F898500F0C9FB /* Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Extensions.m; path = extensions/Extensions.m; sourceTree = "<group>"; };
 		337C73D21E9F8B0200F0C9FB /* MarvelClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarvelClient.h; path = marvelClient/MarvelClient.h; sourceTree = "<group>"; };
 		337C73D31E9F8B0200F0C9FB /* MarvelClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarvelClient.m; path = marvelClient/MarvelClient.m; sourceTree = "<group>"; };
+		339C23A11EADF39100D7835F /* Comic+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Comic+CoreDataProperties.h"; path = "schema/Comic+CoreDataProperties.h"; sourceTree = "<group>"; };
+		339C23AA1EADF3DD00D7835F /* Comic+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Comic+CoreDataClass.h"; path = "schema/Comic+CoreDataClass.h"; sourceTree = "<group>"; };
+		339C23AB1EADF5FF00D7835F /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatabaseManager.h; path = schema/DatabaseManager.h; sourceTree = "<group>"; };
+		339C23AC1EADF5FF00D7835F /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatabaseManager.m; path = schema/DatabaseManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +77,7 @@
 		33557FE91E9F6E26007B5194 /* marvel-view */ = {
 			isa = PBXGroup;
 			children = (
+				33A74B611EA75FE800A66762 /* schema */,
 				335CD7A81EA4CEEF00EF4BD5 /* viewControllers */,
 				337C73CC1E9F88A000F0C9FB /* extensions */,
 				335580041E9F73A2007B5194 /* marvelClient */,
@@ -124,6 +130,17 @@
 				337C73D01E9F898500F0C9FB /* Extensions.m */,
 			);
 			name = extensions;
+			sourceTree = "<group>";
+		};
+		33A74B611EA75FE800A66762 /* schema */ = {
+			isa = PBXGroup;
+			children = (
+				339C23AA1EADF3DD00D7835F /* Comic+CoreDataClass.h */,
+				339C23A11EADF39100D7835F /* Comic+CoreDataProperties.h */,
+				339C23AB1EADF5FF00D7835F /* DatabaseManager.h */,
+				339C23AC1EADF5FF00D7835F /* DatabaseManager.m */,
+			);
+			name = schema;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +215,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3364693A1EA8E30200408BAE /* main.m in Sources */,
+				339C23AD1EADF5FF00D7835F /* DatabaseManager.m in Sources */,
 				337C73D41E9F8B0200F0C9FB /* MarvelClient.m in Sources */,
 				335CD7AB1EA4DB0F00EF4BD5 /* ComicDetailViewController.m in Sources */,
 				33557FF81E9F6E26007B5194 /* marvel_view.xcdatamodeld in Sources */,
@@ -205,7 +224,6 @@
 				335580071E9F73F0007B5194 /* WebRequest.m in Sources */,
 				337C73D11E9F898500F0C9FB /* Extensions.m in Sources */,
 				33557FEF1E9F6E26007B5194 /* AppDelegate.m in Sources */,
-				33557FEC1E9F6E26007B5194 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

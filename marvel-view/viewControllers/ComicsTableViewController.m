@@ -8,6 +8,7 @@
 
 #import "ComicsTableViewController.h"
 #import "MarvelClient.h"
+#import "DatabaseManager.h"
 
 @interface ComicsTableViewController ()
 
@@ -24,23 +25,76 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    [MarvelClient performComicsRequest:0
-                                 limit:0
-                               orderBy:kOrderByOnSaleDate
-                              sortType:Ascending
-                          successBlock:^(NSDictionary *data, NSURLResponse *response) {
-                              
-                              NSLog(@"success, data is:\n%@", data);
+    
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Comic"];
+    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"onSaleDate" ascending:YES]]];
 
-                              [self newData:data];
-                              
-                          }                     failureBlock:^(NSError* error) {
-                              
-                              NSLog(@"failure, error is {%@}", [error description]);
-                              
-                          }];
+//    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"saleByDate = %@"];
+//    fetchRequest.predicate = predicate;
+    
+    NSAsynchronousFetchRequest* asyncFetch = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:fetchRequest
+                                                                                      completionBlock:^(NSAsynchronousFetchResult* result) {
+
+        if (result.finalResult) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                
+                
+                [self.tableView reloadData];
+                
+            });
+            
+            
+        }
+        
+    }];
+
+    __block NSError* error = nil;
+
+    [[DatabaseManager sharedManager].context performBlock:^{
+       
+        
+        NSAsynchronousFetchResult* result = [[DatabaseManager sharedManager].context executeRequest:asyncFetch error:&error];
+        
+        if (error) {
+            
+            
+            
+        }
+        
+        
+    }];
     
     
+    
+    
+    NSArray* result = [[DatabaseManager sharedManager].context executeFetchRequest:fetchRequest error:&error];
+    
+    if (error) {
+        return ;
+    }
+    
+    if (result.count > 0) {
+        
+    } else {
+        
+        [MarvelClient performComicsRequest:0
+                                     limit:100
+                                   orderBy:kOrderByOnSaleDate
+                                  sortType:Ascending
+                              successBlock:^(NSDictionary *data, NSURLResponse *response) {
+                                  
+                                  NSLog(@"success, data is:\n%@", data);
+                                  
+                                  [self newServerData:data];
+                                  
+                              }                     failureBlock:^(NSError* error) {
+                                  
+                                  NSLog(@"failure, error is {%@}", [error description]);
+                                  
+                              }];
+    }
     
 }
 
@@ -49,17 +103,43 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)newData:(NSDictionary*)data {
+-(void)newServerData:(NSDictionary*)data {
 
+    if (data) {
+        
+        NSArray* comics = data[@"results"];
+        
+        @try {
+
+            for (NSDictionary* comic in comics) {
+
+                [[DatabaseManager sharedManager] insertNewComicEntityFromDictionary:comic];
+            }
+            
+        } @catch (NSException *exception) {
+            
+            NSLog(@"exception: %@", [exception description]);
+
+        } @finally {
+
+            NSError* error = nil;
+            [[DatabaseManager sharedManager].context save:&error];
+            if (!error) {
+                
+                //            dispatch_async(dispatch_get_main_queue(), ^void(void){
+                //
+                //                [self.tableView reloadData];
+                //                
+                //            });
+            }
+        }
+        
+        
+    }
 
     
     
     
-    dispatch_async(dispatch_get_main_queue(), ^void(void){
-        
-        [self.tableView reloadData];
-        
-    });
     
 }
 
@@ -67,12 +147,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

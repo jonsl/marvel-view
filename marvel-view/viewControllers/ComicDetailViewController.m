@@ -7,6 +7,7 @@
 //
 
 #import "ComicDetailViewController.h"
+#import "AppDelegate.h"
 
 @interface ComicDetailViewController ()
 
@@ -21,7 +22,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // Dispose of any resources that can be recreated.great a
 }
 
 /*
@@ -34,4 +35,6 @@
 }
 */
 
+- (IBAction)select:(UIButton *)sender {
+}
 @end
