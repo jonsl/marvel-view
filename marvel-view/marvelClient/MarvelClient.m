@@ -101,7 +101,7 @@ static long s_timestamp = 1;
         [task resume];
 
         ++s_timestamp;
-}
+    }
 }
 
 +(NSError*)errorWithCode:(NSInteger)code reason:(NSString*)reason {
