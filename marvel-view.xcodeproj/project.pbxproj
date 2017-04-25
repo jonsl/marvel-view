@@ -12,7 +12,6 @@
 		33557FF81E9F6E26007B5194 /* marvel_view.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33557FF61E9F6E26007B5194 /* marvel_view.xcdatamodeld */; };
 		33557FFA1E9F6E26007B5194 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33557FF91E9F6E26007B5194 /* Assets.xcassets */; };
 		33557FFD1E9F6E26007B5194 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33557FFB1E9F6E26007B5194 /* LaunchScreen.storyboard */; };
-		335580071E9F73F0007B5194 /* WebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 335580061E9F73F0007B5194 /* WebRequest.m */; };
 		335CD7A71EA4CEE100EF4BD5 /* ComicsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335CD7A61EA4CEE100EF4BD5 /* ComicsTableViewController.m */; };
 		335CD7AB1EA4DB0F00EF4BD5 /* ComicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335CD7AA1EA4DB0F00EF4BD5 /* ComicDetailViewController.m */; };
 		3364693A1EA8E30200408BAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 33557FEB1E9F6E26007B5194 /* main.m */; };
@@ -31,8 +30,6 @@
 		33557FF91E9F6E26007B5194 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33557FFC1E9F6E26007B5194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		33557FFE1E9F6E26007B5194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		335580051E9F73F0007B5194 /* WebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebRequest.h; path = marvelClient/WebRequest.h; sourceTree = "<group>"; };
-		335580061E9F73F0007B5194 /* WebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebRequest.m; path = marvelClient/WebRequest.m; sourceTree = "<group>"; };
 		335CD7A51EA4CEE100EF4BD5 /* ComicsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComicsTableViewController.h; path = viewControllers/ComicsTableViewController.h; sourceTree = "<group>"; };
 		335CD7A61EA4CEE100EF4BD5 /* ComicsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComicsTableViewController.m; path = viewControllers/ComicsTableViewController.m; sourceTree = "<group>"; };
 		335CD7A91EA4DB0F00EF4BD5 /* ComicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComicDetailViewController.h; path = viewControllers/ComicDetailViewController.h; sourceTree = "<group>"; };
@@ -104,8 +101,6 @@
 		335580041E9F73A2007B5194 /* marvelClient */ = {
 			isa = PBXGroup;
 			children = (
-				335580051E9F73F0007B5194 /* WebRequest.h */,
-				335580061E9F73F0007B5194 /* WebRequest.m */,
 				337C73D21E9F8B0200F0C9FB /* MarvelClient.h */,
 				337C73D31E9F8B0200F0C9FB /* MarvelClient.m */,
 			);
@@ -221,7 +216,6 @@
 				335CD7AB1EA4DB0F00EF4BD5 /* ComicDetailViewController.m in Sources */,
 				33557FF81E9F6E26007B5194 /* marvel_view.xcdatamodeld in Sources */,
 				335CD7A71EA4CEE100EF4BD5 /* ComicsTableViewController.m in Sources */,
-				335580071E9F73F0007B5194 /* WebRequest.m in Sources */,
 				337C73D11E9F898500F0C9FB /* Extensions.m in Sources */,
 				33557FEF1E9F6E26007B5194 /* AppDelegate.m in Sources */,
 			);
@@ -347,6 +341,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = THZN52QLV5;
 				INFOPLIST_FILE = "marvel-view/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.home.marvel-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -359,6 +354,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = THZN52QLV5;
 				INFOPLIST_FILE = "marvel-view/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.home.marvel-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";
