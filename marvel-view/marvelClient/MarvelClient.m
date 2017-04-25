@@ -37,32 +37,36 @@ static long s_timestamp = 1;
                              orderBy:(NSString*)orderBy
                        sortOrderType:(SortOrderType)sortOrderType
                         successBlock:(ComicRequestSuccessBlock)successBlock
-                        failureBlock:(ComicRequestFailureBlock)failureBlock {
+                        failureBlock:(WebRequestFailureBlock)failureBlock {
 
     NSURLSessionConfiguration* configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    //    configuration.HTTPAdditionalHeaders = header;
     
     NSURLSession* session = [NSURLSession sessionWithConfiguration:configuration];
     
 
+    NSMutableString* urlString = [NSMutableString stringWithFormat:@"%@%@?ts=%ld&apikey=%@&hash=%@", [NSString stringWithUTF8String:s_kMarvelBaseUrl], [NSString stringWithUTF8String:s_kMarvelComicsEndpoint], s_timestamp, [NSString stringWithUTF8String:s_kMarvelPublicKey], [MarvelClient digest]];
+
+    if (limit > 0) {
+        [urlString appendFormat:@"&limit=%i", limit];
+    }
+    if (orderBy) {
+        if (sortOrderType == Descending) {
+            [urlString appendFormat:@"&orderBy=-%@", orderBy];
+        } else {
+            [urlString appendFormat:@"&orderBy=%@", orderBy];
+        }
+    }
+    
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
+    [request setHTTPMethod:@"GET"];
+    [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
+    
     for (int offset = 0; offset < count; offset += limit) {
 
-        NSMutableString* urlString = [NSMutableString stringWithFormat:@"%@%@?ts=%ld&apikey=%@&hash=%@", [NSString stringWithUTF8String:s_kMarvelBaseUrl], [NSString stringWithUTF8String:s_kMarvelComicsEndpoint], s_timestamp, [NSString stringWithUTF8String:s_kMarvelPublicKey], [MarvelClient digest]];
+        [urlString appendFormat:@"&offset=%i", offset];
         
-        if (limit > 0) {
-            [urlString appendFormat:@"&limit=%i", limit];
-        }
-        if (orderBy) {
-            if (sortOrderType == Descending) {
-                [urlString appendFormat:@"&orderBy=-%@", orderBy];
-            } else {
-                [urlString appendFormat:@"&orderBy=%@", orderBy];
-            }
-        }
-        
-        NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-        [request setHTTPMethod:@"GET"];
-        [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
-        [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&offset=%i", urlString, offset]]];
+        [request setURL:[NSURL URLWithString:urlString]];
 
         NSURLSessionDataTask* task = [session dataTaskWithRequest:request
                                                 completionHandler:^(NSData* _Nullable data, NSURLResponse* _Nullable response, NSError* _Nullable error) {
@@ -99,9 +103,9 @@ static long s_timestamp = 1;
                                                 }];
         
         [task resume];
+    }
 
-        ++s_timestamp;
-}
+    ++s_timestamp;
 }
 
 +(NSError*)errorWithCode:(NSInteger)code reason:(NSString*)reason {

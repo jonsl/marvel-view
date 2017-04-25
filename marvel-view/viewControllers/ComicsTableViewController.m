@@ -12,9 +12,9 @@
 #import "Comic+CoreDataProperties.h"
 
 static NSString* kNewDataNotification = @"NewDataNotification";
-static NSUInteger const kRequestLimit = 20;
+static NSUInteger const kRequestLimit = 10;
 
-@interface ComicsTableViewController ()<NSFetchedResultsControllerDelegate>
+@interface ComicsTableViewController ()
 
 @property (strong, nonatomic) NSFetchedResultsController* fetchedResultsController;
 
@@ -36,31 +36,21 @@ static NSUInteger const kRequestLimit = 20;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    NSFetchRequest* fetchRequest = [Comic fetchRequest];
-    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"onSaleDate" ascending:NO]]];
-    [fetchRequest setFetchBatchSize:kRequestLimit];
     
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                        managedObjectContext:[DatabaseManager sharedManager].context
-                                                                          sectionNameKeyPath:nil cacheName:nil];//@"Root"];
-    self.fetchedResultsController.delegate = self;
-    
-    NSError* error = nil;
-    
-    [_fetchedResultsController performFetch:&error];
-    if (error) {
-        NSLog(@"viewDidLoad: performFetch error: %@", [error description]);
-    }
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDataNotification:) name:kNewDataNotification object:nil];
     
-    [[DatabaseManager sharedManager] clear:nil];
+//    [[DatabaseManager sharedManager] clear:nil];
     
     NSUInteger comicsCount = [DatabaseManager sharedManager].comicsCount;
+    
     if (comicsCount == 0) {
 
         [self requestData];
 
+    } else {
+        
+        [self fetchData];
+        
     }
     
 }
@@ -104,16 +94,14 @@ static NSUInteger const kRequestLimit = 20;
             
             NSError* error = nil;
             [[DatabaseManager sharedManager].context save:&error];
-            if (error) {
-                NSLog(@"newDataNotification: context save error: %@", [error description]);
-            }
+            
         }
     }
 }
 
 -(void)requestData {
 
-    [MarvelClient performComicsRequestWithCount:2000
+    [MarvelClient performComicsRequestWithCount:100
                                           limit:kRequestLimit
                                         orderBy:kOrderByOnSaleDate
                                   sortOrderType:Descending
@@ -132,75 +120,105 @@ static NSUInteger const kRequestLimit = 20;
 
 }
 
--(void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Comic *info = [_fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = info.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", info.onSaleDate];
-}
-
-#pragma mark - NSFetchedResultsControllerDelegate
-
--(void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView beginUpdates];
-}
-
--(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+-(void)fetchData {
     
-    UITableView *tableView = self.tableView;
+    __block NSError* error = nil;
+
+    NSFetchRequest* fetchRequest = [Comic fetchRequest];
+    [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"onSaleDate" ascending:YES]]];
     
-    switch(type) {
-            
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
+    //    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"saleByDate = %@"];
+    //    fetchRequest.predicate = predicate;
+    
+    NSAsynchronousFetchRequest* asyncFetch = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:fetchRequest
+                                                                                      completionBlock:^(NSAsynchronousFetchResult* result) {
+                                                                                          
+                                                                                          if (result.finalResult) {
+
+                                                                                              dispatch_async(dispatch_get_main_queue(), ^{
+
+                                                                                                  [self.tableView reloadData];
+                                                                                                  
+                                                                                              });
+
+                                                                                          }
+                                                                                          
+                                                                                      }];
+    
+    [[DatabaseManager sharedManager].context performBlockAndWait:^{
+
+        NSAsynchronousFetchResult* result = [[DatabaseManager sharedManager].context executeRequest:asyncFetch error:&error];
+        
+        if (error) {
+
+        }
+
+    }];
+    
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView endUpdates];
-}
-
-#pragma mark - UITableViewDataSource
+#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [_fetchedResultsController sections].count;
+#warning Incomplete implementation, return the number of sections
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+#warning Incomplete implementation, return the number of rows
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ComicDetailTableCell" forIndexPath:indexPath];
     
-    // Set up the cell...
-    [self configureCell:cell atIndexPath:indexPath];
+    // Configure the cell...
     
     return cell;
 }
 
-#pragma mark - UIViewController
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
 
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
+*/
 
 @end
