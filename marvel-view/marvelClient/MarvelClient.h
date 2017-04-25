@@ -6,9 +6,11 @@
 //  Copyright © 2017 Jonathan Slater. All rights reserved.
 //
 
-#import "WebRequest.h"
+#import <Foundation/Foundation.h>
 
 typedef void(^ComicRequestSuccessBlock)(NSDictionary* data, NSURLResponse* response);
+
+typedef void(^ComicRequestFailureBlock)(NSError* error);
 
 typedef NS_ENUM(NSInteger, SortOrderType) {
     
@@ -31,6 +33,6 @@ extern NSString* const kOrderByModified;
                              orderBy:(NSString*)orderBy
                        sortOrderType:(SortOrderType)sortOrderType
                         successBlock:(ComicRequestSuccessBlock)successBlock
-                        failureBlock:(WebRequestFailureBlock)failureBlock;
+                        failureBlock:(ComicRequestFailureBlock)failureBlock;
 
 @end
