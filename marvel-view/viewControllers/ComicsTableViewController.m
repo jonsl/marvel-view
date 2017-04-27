@@ -11,7 +11,6 @@
 #import "DatabaseManager.h"
 #import "Comic+CoreDataProperties.h"
 #import <AsyncImageView/AsyncImageView.h>
-//#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString* kNewDataNotification = @"NewDataNotification";
 static int const kRequestCount = 100;
@@ -146,6 +145,7 @@ static int const kRequestSize = 20;
 
 -(void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Comic *info = [_fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.numberOfLines = 2;   // multiline
     cell.textLabel.text = info.title;
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterLongStyle];
