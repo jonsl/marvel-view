@@ -78,8 +78,11 @@
     if (comic[@"thumbnail"] != [NSNull null]) {
         NSDictionary* thumbnail = comic[@"thumbnail"];
         NSString* thumbnailUrl = [NSString stringWithFormat:@"%@.%@", thumbnail[@"path"], thumbnail[@"extension"]];
-        [entity setValue:thumbnailUrl forKey:@"thumbnail"];
+        [entity setValue:[thumbnailUrl stringByReplacingOccurrencesOfString:@"http://" withString:@"https://"] forKey:@"thumbnail"];
+
+//        [entity setValue:[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbnailUrlString]] forKey:@"thumbnailImage"];
     }
+    
     if (comic[@"title"] != [NSNull null]) {
         [entity setValue:comic[@"title"] forKey:@"title"];
     }

@@ -12,7 +12,8 @@
 #import "Comic+CoreDataProperties.h"
 
 static NSString* kNewDataNotification = @"NewDataNotification";
-static NSUInteger const kRequestLimit = 20;
+static int const kRequestCount = 100;
+static int const kRequestSize = 20;
 
 @interface ComicsTableViewController ()<NSFetchedResultsControllerDelegate>
 
@@ -22,8 +23,7 @@ static NSUInteger const kRequestLimit = 20;
 
 @implementation ComicsTableViewController {
     
-    NSUInteger _requestOffset;
-    NSUInteger _fetchOffset;
+    int _requestOffset;
     
 }
 
@@ -36,9 +36,11 @@ static NSUInteger const kRequestLimit = 20;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDataNotification:) name:kNewDataNotification object:nil];
+
     NSFetchRequest* fetchRequest = [Comic fetchRequest];
     [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"onSaleDate" ascending:NO]]];
-    [fetchRequest setFetchBatchSize:kRequestLimit];
+    [fetchRequest setFetchBatchSize:kRequestSize];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:[DatabaseManager sharedManager].context
@@ -52,14 +54,14 @@ static NSUInteger const kRequestLimit = 20;
         NSLog(@"viewDidLoad: performFetch error: %@", [error description]);
     }
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDataNotification:) name:kNewDataNotification object:nil];
+    _requestOffset = 0;
     
     [[DatabaseManager sharedManager] clear:nil];
     
     NSUInteger comicsCount = [DatabaseManager sharedManager].comicsCount;
     if (comicsCount == 0) {
 
-        [self requestData];
+        [self checkRequestData:0];
 
     }
     
@@ -111,31 +113,39 @@ static NSUInteger const kRequestLimit = 20;
     }
 }
 
--(void)requestData {
-
-    [MarvelClient performComicsRequestWithCount:2000
-                                          limit:kRequestLimit
-                                        orderBy:kOrderByOnSaleDate
-                                  sortOrderType:Descending
-                                   successBlock:^(NSDictionary *data, NSURLResponse *response) {
-                                       
-                                       [[NSNotificationCenter defaultCenter] postNotificationName:kNewDataNotification
-                                                                                           object:self
-                                                                                         userInfo:data];
-                                       
-                                   }
-                                   failureBlock:^(NSError *error) {
-                                       
-                                       NSLog(@"requestData failed with: %@", [error description]);
-
-                                   }];
-
+-(void)checkRequestData:(int)currentOffset {
+    if (_requestOffset < (currentOffset + kRequestCount)) {
+        _requestOffset = [MarvelClient performComicsRequestWithOffset:_requestOffset
+                                                                count:kRequestCount
+                                                          requestSize:kRequestSize
+                                                              orderBy:kOrderByOnSaleDate
+                                                        sortOrderType:Descending
+                                                         successBlock:^(NSDictionary *data, NSURLResponse *response) {
+                                                             
+                                                             [[NSNotificationCenter defaultCenter] postNotificationName:kNewDataNotification
+                                                                                                                 object:self
+                                                                                                               userInfo:data];
+                                                             
+                                                         }
+                                                         failureBlock:^(NSError *error) {
+                                                             
+                                                             NSLog(@"requestData failed with: %@", [error description]);
+                                                             
+                                                         }];
+        NSLog(@"_requestOffset = %i, currentOffset = %i", _requestOffset, currentOffset);
+    }
 }
 
 -(void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Comic *info = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = info.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", info.onSaleDate];
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterLongStyle];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [formatter stringFromDate:info.onSaleDate]];
+    
+//    if (info.thumbnailImage) {
+//        [cell.imageView setImage:[UIImage imageWithData:info.thumbnailImage]];
+//    }
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -193,6 +203,8 @@ static NSUInteger const kRequestLimit = 20;
     // Set up the cell...
     [self configureCell:cell atIndexPath:indexPath];
     
+    [self checkRequestData:indexPath.row];
+
     return cell;
 }
 

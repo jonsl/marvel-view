@@ -32,8 +32,9 @@ static long s_timestamp = 1;
     return [md5String md5];
 }
 
-+(void)performComicsRequestWithCount:(int)count
-                               limit:(int)limit
++(int)performComicsRequestWithOffset:(int)offset
+                               count:(int)count
+                         requestSize:(int)requestSize
                              orderBy:(NSString*)orderBy
                        sortOrderType:(SortOrderType)sortOrderType
                         successBlock:(ComicRequestSuccessBlock)successBlock
@@ -42,14 +43,14 @@ static long s_timestamp = 1;
     NSURLSessionConfiguration* configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     
     NSURLSession* session = [NSURLSession sessionWithConfiguration:configuration];
-    
 
-    for (int offset = 0; offset < count; offset += limit) {
+    int requestOffset = offset;
+    for (; requestOffset < (offset + count); requestOffset += requestSize) {
 
         NSMutableString* urlString = [NSMutableString stringWithFormat:@"%@%@?ts=%ld&apikey=%@&hash=%@", [NSString stringWithUTF8String:s_kMarvelBaseUrl], [NSString stringWithUTF8String:s_kMarvelComicsEndpoint], s_timestamp, [NSString stringWithUTF8String:s_kMarvelPublicKey], [MarvelClient digest]];
         
-        if (limit > 0) {
-            [urlString appendFormat:@"&limit=%i", limit];
+        if (requestSize > 0) {
+            [urlString appendFormat:@"&limit=%i", requestSize];
         }
         if (orderBy) {
             if (sortOrderType == Descending) {
@@ -102,6 +103,8 @@ static long s_timestamp = 1;
 
         ++s_timestamp;
     }
+
+    return requestOffset;
 }
 
 +(NSError*)errorWithCode:(NSInteger)code reason:(NSString*)reason {

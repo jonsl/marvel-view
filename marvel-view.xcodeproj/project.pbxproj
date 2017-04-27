@@ -17,10 +17,12 @@
 		3364693A1EA8E30200408BAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 33557FEB1E9F6E26007B5194 /* main.m */; };
 		337C73D11E9F898500F0C9FB /* Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C73D01E9F898500F0C9FB /* Extensions.m */; };
 		337C73D41E9F8B0200F0C9FB /* MarvelClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C73D31E9F8B0200F0C9FB /* MarvelClient.m */; };
+		338B607C1EB212B400E51C55 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 338B607B1EB212B400E51C55 /* placeholder.png */; };
 		339C23AD1EADF5FF00D7835F /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 339C23AC1EADF5FF00D7835F /* DatabaseManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3310BCD21EAF7B0300307CB9 /* Comic+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Comic+CoreDataProperties.h"; path = "schema/Comic+CoreDataProperties.h"; sourceTree = "<group>"; };
 		33557FE71E9F6E26007B5194 /* marvel-view.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "marvel-view.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33557FEB1E9F6E26007B5194 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		33557FED1E9F6E26007B5194 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -38,7 +40,7 @@
 		337C73D01E9F898500F0C9FB /* Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Extensions.m; path = extensions/Extensions.m; sourceTree = "<group>"; };
 		337C73D21E9F8B0200F0C9FB /* MarvelClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarvelClient.h; path = marvelClient/MarvelClient.h; sourceTree = "<group>"; };
 		337C73D31E9F8B0200F0C9FB /* MarvelClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MarvelClient.m; path = marvelClient/MarvelClient.m; sourceTree = "<group>"; };
-		339C23A11EADF39100D7835F /* Comic+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Comic+CoreDataProperties.h"; path = "schema/Comic+CoreDataProperties.h"; sourceTree = "<group>"; };
+		338B607B1EB212B400E51C55 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		339C23AA1EADF3DD00D7835F /* Comic+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Comic+CoreDataClass.h"; path = "schema/Comic+CoreDataClass.h"; sourceTree = "<group>"; };
 		339C23AB1EADF5FF00D7835F /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatabaseManager.h; path = schema/DatabaseManager.h; sourceTree = "<group>"; };
 		339C23AC1EADF5FF00D7835F /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatabaseManager.m; path = schema/DatabaseManager.m; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				335580041E9F73A2007B5194 /* marvelClient */,
 				33557FED1E9F6E26007B5194 /* AppDelegate.h */,
 				33557FEE1E9F6E26007B5194 /* AppDelegate.m */,
+				338B607B1EB212B400E51C55 /* placeholder.png */,
 				33557FF31E9F6E26007B5194 /* Main.storyboard */,
 				33557FF91E9F6E26007B5194 /* Assets.xcassets */,
 				33557FFB1E9F6E26007B5194 /* LaunchScreen.storyboard */,
@@ -131,7 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				339C23AA1EADF3DD00D7835F /* Comic+CoreDataClass.h */,
-				339C23A11EADF39100D7835F /* Comic+CoreDataProperties.h */,
+				3310BCD21EAF7B0300307CB9 /* Comic+CoreDataProperties.h */,
 				339C23AB1EADF5FF00D7835F /* DatabaseManager.h */,
 				339C23AC1EADF5FF00D7835F /* DatabaseManager.m */,
 			);
@@ -198,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33557FFD1E9F6E26007B5194 /* LaunchScreen.storyboard in Resources */,
+				338B607C1EB212B400E51C55 /* placeholder.png in Resources */,
 				33557FFA1E9F6E26007B5194 /* Assets.xcassets in Resources */,
 				33557FF51E9F6E26007B5194 /* Main.storyboard in Resources */,
 			);
@@ -341,7 +345,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = THZN52QLV5;
 				INFOPLIST_FILE = "marvel-view/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.home.marvel-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -354,7 +358,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = THZN52QLV5;
 				INFOPLIST_FILE = "marvel-view/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.home.marvel-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";

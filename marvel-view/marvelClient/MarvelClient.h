@@ -28,8 +28,9 @@ extern NSString* const kOrderByModified;
 
 @interface MarvelClient : NSObject
 
-+(void)performComicsRequestWithCount:(int)count
-                               limit:(int)limit
++(int)performComicsRequestWithOffset:(int)offset
+                               count:(int)count
+                         requestSize:(int)requestSize
                              orderBy:(NSString*)orderBy
                        sortOrderType:(SortOrderType)sortOrderType
                         successBlock:(ComicRequestSuccessBlock)successBlock

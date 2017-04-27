@@ -2,7 +2,7 @@
 //  Comic+CoreDataProperties.h
 //  marvel-view
 //
-//  Created by Jonathan Slater on 24/04/2017.
+//  Created by Jonathan Slater on 25/04/2017.
 //  Copyright © 2017 Jonathan Slater. All rights reserved.
 //
 
@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *thumbnail;
 @property (nullable, nonatomic, copy) NSString *title;
 @property (nullable, nonatomic, copy) NSString *uniqueId;
+@property (nullable, nonatomic, retain) NSData *thumbnailImage;
 
 @end
 
