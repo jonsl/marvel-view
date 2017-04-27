@@ -39,7 +39,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="placeholder.png" id="IsZ-Ab-JxW">
+                                        <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="placeholder.png" id="IsZ-Ab-JxW">
                                             <rect key="frame" x="15" y="0.0" width="29" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>

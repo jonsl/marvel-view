@@ -19,6 +19,8 @@
 		337C73D41E9F8B0200F0C9FB /* MarvelClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C73D31E9F8B0200F0C9FB /* MarvelClient.m */; };
 		338B607C1EB212B400E51C55 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 338B607B1EB212B400E51C55 /* placeholder.png */; };
 		339C23AD1EADF5FF00D7835F /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 339C23AC1EADF5FF00D7835F /* DatabaseManager.m */; };
+		33D2170A1EB22C9D001AC256 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 33D217091EB22C9D001AC256 /* .gitignore */; };
+		626E702D3440DDA29CF40866 /* libPods-marvel-view.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAD02FEB74BF04EBCBF917E /* libPods-marvel-view.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,10 @@
 		339C23AA1EADF3DD00D7835F /* Comic+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Comic+CoreDataClass.h"; path = "schema/Comic+CoreDataClass.h"; sourceTree = "<group>"; };
 		339C23AB1EADF5FF00D7835F /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatabaseManager.h; path = schema/DatabaseManager.h; sourceTree = "<group>"; };
 		339C23AC1EADF5FF00D7835F /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatabaseManager.m; path = schema/DatabaseManager.m; sourceTree = "<group>"; };
+		33D217091EB22C9D001AC256 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		7EB9D9CDDF940FF5D752409D /* Pods-marvel-view.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-marvel-view.release.xcconfig"; path = "Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view.release.xcconfig"; sourceTree = "<group>"; };
+		AB25F0A22486F6648FAD511A /* Pods-marvel-view.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-marvel-view.debug.xcconfig"; path = "Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view.debug.xcconfig"; sourceTree = "<group>"; };
+		BFAD02FEB74BF04EBCBF917E /* libPods-marvel-view.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-marvel-view.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				626E702D3440DDA29CF40866 /* libPods-marvel-view.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,8 +67,11 @@
 		33557FDE1E9F6E26007B5194 = {
 			isa = PBXGroup;
 			children = (
+				33D217091EB22C9D001AC256 /* .gitignore */,
 				33557FE91E9F6E26007B5194 /* marvel-view */,
 				33557FE81E9F6E26007B5194 /* Products */,
+				3804AEA8BB333F6900188205 /* Pods */,
+				8D166D408E3D459BAF74049C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -141,6 +151,23 @@
 			name = schema;
 			sourceTree = "<group>";
 		};
+		3804AEA8BB333F6900188205 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AB25F0A22486F6648FAD511A /* Pods-marvel-view.debug.xcconfig */,
+				7EB9D9CDDF940FF5D752409D /* Pods-marvel-view.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8D166D408E3D459BAF74049C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BFAD02FEB74BF04EBCBF917E /* libPods-marvel-view.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,9 +175,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 335580011E9F6E26007B5194 /* Build configuration list for PBXNativeTarget "marvel-view" */;
 			buildPhases = (
+				7501562AB569A33B5FADB86E /* [CP] Check Pods Manifest.lock */,
 				33557FE31E9F6E26007B5194 /* Sources */,
 				33557FE41E9F6E26007B5194 /* Frameworks */,
 				33557FE51E9F6E26007B5194 /* Resources */,
+				D3469B9C17AF131758839D18 /* [CP] Embed Pods Frameworks */,
+				5870ED9CCF2B8835663DEC9C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -200,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33D2170A1EB22C9D001AC256 /* .gitignore in Resources */,
 				33557FFD1E9F6E26007B5194 /* LaunchScreen.storyboard in Resources */,
 				338B607C1EB212B400E51C55 /* placeholder.png in Resources */,
 				33557FFA1E9F6E26007B5194 /* Assets.xcassets in Resources */,
@@ -208,6 +239,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5870ED9CCF2B8835663DEC9C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7501562AB569A33B5FADB86E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D3469B9C17AF131758839D18 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		33557FE31E9F6E26007B5194 /* Sources */ = {
@@ -288,7 +367,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -331,7 +410,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -341,11 +420,12 @@
 		};
 		335580021E9F6E26007B5194 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB25F0A22486F6648FAD511A /* Pods-marvel-view.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = THZN52QLV5;
 				INFOPLIST_FILE = "marvel-view/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.home.marvel-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -354,11 +434,12 @@
 		};
 		335580031E9F6E26007B5194 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7EB9D9CDDF940FF5D752409D /* Pods-marvel-view.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = THZN52QLV5;
 				INFOPLIST_FILE = "marvel-view/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.home.marvel-view";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -10,6 +10,7 @@
 #import "MarvelClient.h"
 #import "DatabaseManager.h"
 #import "Comic+CoreDataProperties.h"
+#import <AsyncImageView/AsyncImageView.h>
 
 static NSString* kNewDataNotification = @"NewDataNotification";
 static int const kRequestCount = 100;
@@ -142,10 +143,15 @@ static int const kRequestSize = 20;
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterLongStyle];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [formatter stringFromDate:info.onSaleDate]];
-    
-//    if (info.thumbnailImage) {
-//        [cell.imageView setImage:[UIImage imageWithData:info.thumbnailImage]];
-//    }
+    if (info.thumbnail) {
+        CGRect frame = cell.imageView.bounds;
+        AsyncImageView* asyImage = [[AsyncImageView alloc] initWithFrame:frame];
+        asyImage.imageURL = [NSURL URLWithString:info.thumbnail];
+        asyImage.layer.borderWidth = 2.0f;
+        asyImage.contentMode = UIViewContentModeScaleToFill;
+        asyImage.layer.masksToBounds=YES;
+        [cell.imageView addSubview:asyImage];
+    }
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
