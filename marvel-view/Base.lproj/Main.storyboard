@@ -13,34 +13,34 @@
         <scene sceneID="d1J-Q8-LW6">
             <objects>
                 <tableViewController storyboardIdentifier="ComicsTableViewController" title="Comics" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a6v-6l-Aqf" userLabel="Comics List" customClass="ComicsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="FUU-FE-62l">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="FUU-FE-62l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ComicDetailTableCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ComicDetailTableCell" textLabel="xEd-b4-zDe" detailTextLabel="NdG-RH-UAm" imageView="IsZ-Ab-JxW" style="IBUITableViewCellStyleSubtitle" id="vbb-sH-TJP">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ComicDetailTableCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ComicDetailTableCell" textLabel="xEd-b4-zDe" detailTextLabel="NdG-RH-UAm" imageView="IsZ-Ab-JxW" rowHeight="90" style="IBUITableViewCellStyleSubtitle" id="vbb-sH-TJP">
+                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vbb-sH-TJP" id="ydh-tF-14d">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xEd-b4-zDe">
-                                            <rect key="frame" x="59" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="90" y="28" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NdG-RH-UAm">
-                                            <rect key="frame" x="59" y="25.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="90" y="48.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="placeholder.png" id="IsZ-Ab-JxW">
-                                            <rect key="frame" x="15" y="0.0" width="29" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="60" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
@@ -59,7 +59,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K5B-IZ-ede" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="529" y="81"/>
+            <point key="canvasLocation" x="528.79999999999995" y="80.50974512743629"/>
         </scene>
         <!--Comic Detail-->
         <scene sceneID="uBK-Gh-Hpo">

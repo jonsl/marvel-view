@@ -11,6 +11,7 @@
 #import "DatabaseManager.h"
 #import "Comic+CoreDataProperties.h"
 #import <AsyncImageView/AsyncImageView.h>
+//#import <SDWebImage/UIImageView+WebCache.h>
 
 static NSString* kNewDataNotification = @"NewDataNotification";
 static int const kRequestCount = 100;
@@ -38,6 +39,7 @@ static int const kRequestSize = 20;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDataNotification:) name:kNewDataNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(asyncImageLoadDidFinishNotification:) name:AsyncImageLoadDidFinish object:nil];
 
     NSFetchRequest* fetchRequest = [Comic fetchRequest];
     [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"onSaleDate" ascending:NO]]];
@@ -93,10 +95,15 @@ static int const kRequestSize = 20;
         NSArray* comics = data[@"results"];
         
         @try {
-            
             for (NSDictionary* comic in comics) {
                 
                 [[DatabaseManager sharedManager] insertNewComicEntityFromDictionary:comic];
+            }
+            
+            NSError* error = nil;
+            BOOL success = [[DatabaseManager sharedManager].context save:&error];
+            if (!success) {
+                NSLog(@"newDataNotification: context save error: %@", [error description]);
             }
             
         } @catch (NSException *exception) {
@@ -104,14 +111,14 @@ static int const kRequestSize = 20;
             NSLog(@"exception: %@", [exception description]);
             
         } @finally {
-            
-            NSError* error = nil;
-            [[DatabaseManager sharedManager].context save:&error];
-            if (error) {
-                NSLog(@"newDataNotification: context save error: %@", [error description]);
-            }
+
+            [self.tableView reloadData];
         }
     }
+}
+
+-(void)asyncImageLoadDidFinishNotification:(NSNotification*)notification {
+    
 }
 
 -(void)checkRequestData:(int)currentOffset {
@@ -122,16 +129,16 @@ static int const kRequestSize = 20;
                                                               orderBy:kOrderByOnSaleDate
                                                         sortOrderType:Descending
                                                          successBlock:^(NSDictionary *data, NSURLResponse *response) {
-                                                             
-                                                             [[NSNotificationCenter defaultCenter] postNotificationName:kNewDataNotification
-                                                                                                                 object:self
-                                                                                                               userInfo:data];
-                                                             
+
+                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                 [[NSNotificationCenter defaultCenter] postNotificationName:kNewDataNotification
+                                                                                                                     object:self
+                                                                                                                   userInfo:data];
+                                                             });
                                                          }
                                                          failureBlock:^(NSError *error) {
                                                              
                                                              NSLog(@"requestData failed with: %@", [error description]);
-                                                             
                                                          }];
         NSLog(@"_requestOffset = %i, currentOffset = %i", _requestOffset, currentOffset);
     }
@@ -143,13 +150,16 @@ static int const kRequestSize = 20;
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterLongStyle];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [formatter stringFromDate:info.onSaleDate]];
+    [[cell.imageView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    cell.imageView.image = [UIImage imageNamed:@"placeholder"];
     if (info.thumbnail) {
         CGRect frame = cell.imageView.bounds;
         AsyncImageView* asyImage = [[AsyncImageView alloc] initWithFrame:frame];
         asyImage.imageURL = [NSURL URLWithString:info.thumbnail];
         asyImage.layer.borderWidth = 2.0f;
         asyImage.contentMode = UIViewContentModeScaleToFill;
-        asyImage.layer.masksToBounds=YES;
+        asyImage.layer.masksToBounds= YES;
+        asyImage.showActivityIndicator = YES;
         [cell.imageView addSubview:asyImage];
     }
 }
@@ -209,7 +219,7 @@ static int const kRequestSize = 20;
     // Set up the cell...
     [self configureCell:cell atIndexPath:indexPath];
     
-    [self checkRequestData:indexPath.row];
+    [self checkRequestData:(int)indexPath.row];
 
     return cell;
 }

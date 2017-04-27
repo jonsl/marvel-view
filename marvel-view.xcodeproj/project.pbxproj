@@ -20,6 +20,7 @@
 		338B607C1EB212B400E51C55 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 338B607B1EB212B400E51C55 /* placeholder.png */; };
 		339C23AD1EADF5FF00D7835F /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 339C23AC1EADF5FF00D7835F /* DatabaseManager.m */; };
 		33D2170A1EB22C9D001AC256 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 33D217091EB22C9D001AC256 /* .gitignore */; };
+		33D2170C1EB246F3001AC256 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 33D2170B1EB246F3001AC256 /* Podfile */; };
 		626E702D3440DDA29CF40866 /* libPods-marvel-view.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAD02FEB74BF04EBCBF917E /* libPods-marvel-view.a */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		339C23AB1EADF5FF00D7835F /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatabaseManager.h; path = schema/DatabaseManager.h; sourceTree = "<group>"; };
 		339C23AC1EADF5FF00D7835F /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatabaseManager.m; path = schema/DatabaseManager.m; sourceTree = "<group>"; };
 		33D217091EB22C9D001AC256 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		33D2170B1EB246F3001AC256 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7EB9D9CDDF940FF5D752409D /* Pods-marvel-view.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-marvel-view.release.xcconfig"; path = "Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view.release.xcconfig"; sourceTree = "<group>"; };
 		AB25F0A22486F6648FAD511A /* Pods-marvel-view.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-marvel-view.debug.xcconfig"; path = "Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view.debug.xcconfig"; sourceTree = "<group>"; };
 		BFAD02FEB74BF04EBCBF917E /* libPods-marvel-view.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-marvel-view.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				33D217091EB22C9D001AC256 /* .gitignore */,
+				33D2170B1EB246F3001AC256 /* Podfile */,
 				33557FE91E9F6E26007B5194 /* marvel-view */,
 				33557FE81E9F6E26007B5194 /* Products */,
 				3804AEA8BB333F6900188205 /* Pods */,
@@ -230,6 +233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33D2170C1EB246F3001AC256 /* Podfile in Resources */,
 				33D2170A1EB22C9D001AC256 /* .gitignore in Resources */,
 				33557FFD1E9F6E26007B5194 /* LaunchScreen.storyboard in Resources */,
 				338B607C1EB212B400E51C55 /* placeholder.png in Resources */,

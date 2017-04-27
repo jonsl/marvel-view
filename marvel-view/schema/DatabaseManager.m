@@ -25,8 +25,11 @@
 }
 
 -(NSManagedObjectContext*)context {
+    NSAssert([NSThread isMainThread], @"context not accessed from main thread");
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    return appDelegate.persistentContainer.viewContext;
+    NSManagedObjectContext* context = appDelegate.persistentContainer.viewContext;
+    NSAssert(context, @"context is nil");
+    return context;
 }
 
 -(void)clear:(NSError**)error {
@@ -79,8 +82,6 @@
         NSDictionary* thumbnail = comic[@"thumbnail"];
         NSString* thumbnailUrl = [NSString stringWithFormat:@"%@.%@", thumbnail[@"path"], thumbnail[@"extension"]];
         [entity setValue:thumbnailUrl forKey:@"thumbnail"];
-
-//        [entity setValue:[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbnailUrl]] forKey:@"thumbnailImage"];
     }
     
     if (comic[@"title"] != [NSNull null]) {

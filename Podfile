@@ -8,5 +8,6 @@ target 'marvel-view' do
   # Pods for marvel-view
 
   pod 'AsyncImageView'
+  #  pod 'SDWebImage'
 
 end
