@@ -15,9 +15,10 @@
 
 -(void)clear:(NSError**)error;
 
--(NSManagedObject*)insertNewComicEntityFromDictionary:(NSDictionary*)comic;
+-(NSManagedObject*)insertNewComicEntityFromDictionary:(NSDictionary*)comic
+                                 managedObjectContext:(NSManagedObjectContext*)managedObjectContext;
 
-@property (readonly, nonatomic) NSManagedObjectContext* context;
+@property (readonly, nonatomic) NSManagedObjectContext* mainManagedObjectContext;
 
 @property (readonly, nonatomic) NSUInteger comicsCount;
 

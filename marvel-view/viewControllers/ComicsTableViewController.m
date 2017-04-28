@@ -36,6 +36,8 @@ static int const kRequestSize = 20;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDataNotification:) name:kNewDataNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(asyncImageLoadDidFinishNotification:) name:AsyncImageLoadDidFinish object:nil];
@@ -45,7 +47,7 @@ static int const kRequestSize = 20;
     [fetchRequest setFetchBatchSize:kRequestSize];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                        managedObjectContext:[DatabaseManager sharedManager].context
+                                                                        managedObjectContext:[DatabaseManager sharedManager].mainManagedObjectContext
                                                                           sectionNameKeyPath:nil cacheName:nil];//@"Root"];
     self.fetchedResultsController.delegate = self;
     
@@ -58,15 +60,19 @@ static int const kRequestSize = 20;
 
     _requestOffset = 0;
     
-    [[DatabaseManager sharedManager] clear:nil];
+    [[DatabaseManager sharedManager] clear:&error];
+    if (error) {
+        NSLog(@"main clear error: %@", [error description]);
+        return ;
+    }
     
     NSUInteger comicsCount = [DatabaseManager sharedManager].comicsCount;
     if (comicsCount == 0) {
-
+        
         [self checkRequestData:0];
-
+        
     }
-    
+
 }
 
 - (void)viewDidUnload {
@@ -87,32 +93,43 @@ static int const kRequestSize = 20;
 -(void)newDataNotification:(NSNotification*)notification {
     
     if ([[notification name] isEqualToString:kNewDataNotification]) {
-
-        NSDictionary* data = [notification userInfo];
+        
+        __block NSManagedObjectContext* temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        temporaryContext.parentContext = [DatabaseManager sharedManager].mainManagedObjectContext;
+        
+        __block NSDictionary* data = [notification userInfo];
         NSAssert(data, @"data is nil");
-        
-        NSArray* comics = data[@"results"];
-        
-        @try {
+
+        __block NSError* error = nil;
+
+        [temporaryContext performBlock:^{
+
+            NSArray* comics = data[@"results"];
+
             for (NSDictionary* comic in comics) {
                 
-                [[DatabaseManager sharedManager] insertNewComicEntityFromDictionary:comic];
+                [[DatabaseManager sharedManager] insertNewComicEntityFromDictionary:comic
+                                                               managedObjectContext:temporaryContext];
             }
             
-            NSError* error = nil;
-            BOOL success = [[DatabaseManager sharedManager].context save:&error];
-            if (!success) {
-                NSLog(@"newDataNotification: context save error: %@", [error description]);
-            }
-            
-        } @catch (NSException *exception) {
-            
-            NSLog(@"exception: %@", [exception description]);
-            
-        } @finally {
+            if (![temporaryContext save:&error]) {
 
-            [self.tableView reloadData];
-        }
+                NSLog(@"newDataNotification: temp context save error: %@", [error description]);
+            }
+
+            [[DatabaseManager sharedManager].mainManagedObjectContext performBlock:^{
+
+                if (![[DatabaseManager sharedManager].mainManagedObjectContext save:&error]) {
+
+                    NSLog(@"newDataNotification: main context save error: %@", [error description]);
+                    
+                }
+
+//                [self.tableView reloadData];
+            }];
+            
+        }];
+        
     }
 }
 
@@ -189,10 +206,8 @@ static int const kRequestSize = 20;
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
@@ -216,9 +231,10 @@ static int const kRequestSize = 20;
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ComicDetailTableCell" forIndexPath:indexPath];
     
-    // Set up the cell...
+    // configure cell
     [self configureCell:cell atIndexPath:indexPath];
     
+    // request more data if needed
     [self checkRequestData:(int)indexPath.row];
 
     return cell;

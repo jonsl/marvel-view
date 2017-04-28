@@ -24,8 +24,7 @@
     return instance;
 }
 
--(NSManagedObjectContext*)context {
-    NSAssert([NSThread isMainThread], @"context not accessed from main thread");
+-(NSManagedObjectContext*)mainManagedObjectContext {
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext* context = appDelegate.persistentContainer.viewContext;
     NSAssert(context, @"context is nil");
@@ -33,22 +32,25 @@
 }
 
 -(void)clear:(NSError**)error {
-    NSFetchRequest* fetchRequest = [Comic fetchRequest];
-    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Comic"
-                                        inManagedObjectContext:[DatabaseManager sharedManager].context]];
-    [fetchRequest setIncludesPropertyValues:NO];
-    
-    NSArray* comics = [[DatabaseManager sharedManager].context executeFetchRequest:fetchRequest error:error];
-    if (error && *error) {
-        return ;
-    }
+    [self.mainManagedObjectContext performBlockAndWait: ^void(void) {
 
-    for (NSManagedObject* comic in comics) {
+        NSFetchRequest* fetchRequest = [Comic fetchRequest];
+        [fetchRequest setEntity:[NSEntityDescription entityForName:@"Comic"
+                                            inManagedObjectContext:self.mainManagedObjectContext]];
+        [fetchRequest setIncludesPropertyValues:NO];
+
+        NSArray* comics = [self.mainManagedObjectContext executeFetchRequest:fetchRequest error:error];
+        if (error && *error) {
+            return ;
+        }
         
-        [[DatabaseManager sharedManager].context deleteObject:comic];
-        
-    }
-    [[DatabaseManager sharedManager].context save:error];
+        for (NSManagedObject* comic in comics) {
+            
+            [self.mainManagedObjectContext deleteObject:comic];
+            
+        }
+        [self.mainManagedObjectContext save:error];
+    }];
 }
 
 -(NSUInteger)comicsCount {
@@ -57,7 +59,7 @@
     [fetchRequest setIncludesSubentities:NO];
     
     NSError* error = nil;
-    NSUInteger count = [[DatabaseManager sharedManager].context countForFetchRequest:fetchRequest error:&error];
+    NSUInteger count = [self.mainManagedObjectContext countForFetchRequest:fetchRequest error:&error];
     if (error) {
         NSLog(@"DatabaseManager: comicsCount: error: %@", [error description]);
         return 0;
@@ -69,8 +71,8 @@
     return count;
 }
 
--(NSManagedObject*)insertNewComicEntityFromDictionary:(NSDictionary*)comic {
-    NSManagedObject* entity = [NSEntityDescription insertNewObjectForEntityForName:@"Comic" inManagedObjectContext:[DatabaseManager sharedManager].context];
+-(NSManagedObject*)insertNewComicEntityFromDictionary:(NSDictionary*)comic managedObjectContext:(NSManagedObjectContext*)managedObjectContext {
+    NSManagedObject* entity = [NSEntityDescription insertNewObjectForEntityForName:@"Comic" inManagedObjectContext:managedObjectContext];
 
     if (comic[@"description"] != [NSNull null]) {
         [entity setValue:comic[@"description"] forKey:@"desc"];
