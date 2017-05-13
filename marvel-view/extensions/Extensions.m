@@ -9,7 +9,23 @@
 // REF: https://stackoverflow.com/questions/1524604/md5-algorithm-in-objective-c
 
 #import "Extensions.h"
+#import <objc/runtime.h>
 #import <CommonCrypto/CommonDigest.h>
+
+@implementation NSObject(Associating)
+
+-(id)associatedObject {
+    return objc_getAssociatedObject(self, @selector(associatedObject));
+}
+
+-(void)setAssociatedObject:(id)associatedObject {
+    objc_setAssociatedObject(self,
+                             @selector(associatedObject),
+                             associatedObject,
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
 
 @implementation NSString(Md5)
 

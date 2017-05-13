@@ -27,7 +27,7 @@
 -(NSManagedObjectContext*)mainManagedObjectContext {
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext* context = appDelegate.persistentContainer.viewContext;
-    NSAssert(context, @"context is nil");
+    NSParameterAssert(context);
     return context;
 }
 

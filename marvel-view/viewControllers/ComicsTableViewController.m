@@ -11,6 +11,7 @@
 #import "DatabaseManager.h"
 #import "Comic+CoreDataProperties.h"
 #import <AsyncImageView/AsyncImageView.h>
+#import "Extensions.h"
 
 static NSString* kNewDataNotification = @"NewDataNotification";
 static int const kRequestCount = 100;
@@ -37,8 +38,8 @@ static int const kRequestSize = 20;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
-
+//    self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDataNotification:) name:kNewDataNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(asyncImageLoadDidFinishNotification:) name:AsyncImageLoadDidFinish object:nil];
 
@@ -91,16 +92,14 @@ static int const kRequestSize = 20;
 }
 
 -(void)newDataNotification:(NSNotification*)notification {
-    
+
     if ([[notification name] isEqualToString:kNewDataNotification]) {
         
-        __block NSManagedObjectContext* temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        NSManagedObjectContext* temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         temporaryContext.parentContext = [DatabaseManager sharedManager].mainManagedObjectContext;
         
-        __block NSDictionary* data = [notification userInfo];
-        NSAssert(data, @"data is nil");
-
-        __block NSError* error = nil;
+        NSDictionary* data = [notification userInfo];
+        NSParameterAssert(data);
 
         [temporaryContext performBlock:^{
 
@@ -112,6 +111,7 @@ static int const kRequestSize = 20;
                                                                managedObjectContext:temporaryContext];
             }
             
+            NSError* error = nil;
             if (![temporaryContext save:&error]) {
 
                 NSLog(@"newDataNotification: temp context save error: %@", [error description]);
@@ -119,13 +119,19 @@ static int const kRequestSize = 20;
 
             [[DatabaseManager sharedManager].mainManagedObjectContext performBlock:^{
 
+                NSError* error = nil;
                 if (![[DatabaseManager sharedManager].mainManagedObjectContext save:&error]) {
 
                     NSLog(@"newDataNotification: main context save error: %@", [error description]);
                     
                 }
 
-//                [self.tableView reloadData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self.tableView reloadData];
+                    
+                });
+
             }];
             
         }];
@@ -155,6 +161,24 @@ static int const kRequestSize = 20;
                                                          failureBlock:^(NSError *error) {
                                                              
                                                              NSLog(@"requestData failed with: %@", [error description]);
+                                                             
+                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                 UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Network Error"
+                                                                                                                                 message:[error localizedDescription]
+                                                                                                                          preferredStyle:UIAlertControllerStyleAlert];
+                                                                 
+                                                                 UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
+                                                                                                              style:UIAlertActionStyleDefault
+                                                                                                            handler:^(UIAlertAction * action) {
+                                                                                                                
+                                                                                                                [alert dismissViewControllerAnimated:YES completion:nil];
+                                                                                                                
+                                                                                                            }];
+                                                                 
+                                                                 [alert addAction:ok];
+                                                                 
+                                                                 [self presentViewController:alert animated:YES completion:nil];
+                                                             });
                                                          }];
         NSLog(@"_requestOffset = %i, currentOffset = %i", _requestOffset, currentOffset);
     }
@@ -167,18 +191,31 @@ static int const kRequestSize = 20;
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterLongStyle];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [formatter stringFromDate:info.onSaleDate]];
-    [[cell.imageView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     cell.imageView.image = [UIImage imageNamed:@"placeholder"];
-    if (info.thumbnail) {
-        CGRect frame = cell.imageView.bounds;
-        AsyncImageView* asyImage = [[AsyncImageView alloc] initWithFrame:frame];
-        asyImage.imageURL = [NSURL URLWithString:info.thumbnail];
-        asyImage.layer.borderWidth = 2.0f;
-        asyImage.contentMode = UIViewContentModeScaleToFill;
-        asyImage.layer.masksToBounds= YES;
-        asyImage.showActivityIndicator = YES;
-        [cell.imageView addSubview:asyImage];
+    if (cell.imageView.associatedObject) {
+        [[AsyncImageLoader sharedLoader] cancelLoadingURL:cell.imageView.associatedObject];
+        cell.imageView.associatedObject = nil;
     }
+    NSParameterAssert(info.thumbnail);
+    if (info.thumbnail) {
+
+//        [[cell.imageView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        
+        cell.imageView.associatedObject = [NSURL URLWithString:info.thumbnail];
+        cell.imageView.imageURL = [NSURL URLWithString:info.thumbnail];
+
+//        CGRect frame = cell.imageView.bounds;
+//        AsyncImageView* asyImage = [[AsyncImageView alloc] initWithFrame:frame];
+//        asyImage.imageURL = [NSURL URLWithString:info.thumbnail];
+//        asyImage.layer.borderWidth = 2.0f;
+//        asyImage.contentMode = UIViewContentModeScaleToFill;
+//        asyImage.layer.masksToBounds= YES;
+//        asyImage.showActivityIndicator = YES;
+//        [cell.imageView addSubview:asyImage];
+
+        
+    }
+//    [cell setNeedsDisplay];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

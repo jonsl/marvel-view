@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@interface NSObject(Associating)
+
+@property (nonatomic, strong) id associatedObject;
+
+@end
+
 @interface NSString(Md5)
 
 -(NSString*)md5;

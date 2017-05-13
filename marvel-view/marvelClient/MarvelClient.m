@@ -8,6 +8,9 @@
 
 #import "MarvelClient.h"
 #import "Extensions.h"
+#import "NetworkClient.h"
+
+//static NSTimeInterval const kRequestTimeout = 10.0;
 
 static NSString* const NSMarvelClientErrorDomain = @"MarvelClientErrorDomain";
 
@@ -25,12 +28,8 @@ static char const* s_kMarvelComicsEndpoint = "/v1/public/comics";
 
 static long s_timestamp = 1;
 
-@implementation MarvelClient
 
-+(NSString*)digest {
-    NSString* md5String = [NSString stringWithFormat:@"%ld%@%@", s_timestamp, [NSString stringWithUTF8String:s_kMarvelPrivateKey], [NSString stringWithUTF8String:s_kMarvelPublicKey]];
-    return [md5String md5];
-}
+@implementation MarvelClient
 
 +(int)performComicsRequestWithOffset:(int)offset
                                count:(int)count
@@ -64,7 +63,9 @@ static long s_timestamp = 1;
         [request setHTTPMethod:@"GET"];
         [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
         [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&offset=%i", urlString, offset]]];
+//        request.timeoutInterval = kRequestTimeout;
 
+//        NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request
         NSURLSessionDataTask* task = [session dataTaskWithRequest:request
                                                 completionHandler:^(NSData* _Nullable data, NSURLResponse* _Nullable response, NSError* _Nullable error) {
                                                     
@@ -79,18 +80,21 @@ static long s_timestamp = 1;
                                                         if (successBlock) {
                                                             
                                                             NSError* error = nil;
-                                                            
                                                             id jsonData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-                                                            if ([jsonData isKindOfClass:[NSDictionary class]]) {
-                                                                
-                                                                if (successBlock) {
-                                                                    successBlock(jsonData[@"data"], response);
+                                                            if (error) {
+                                                                if (failureBlock) {
+                                                                    failureBlock(error);
                                                                 }
-                                                            } else {
-                                                                
+                                                            } else if (![jsonData isKindOfClass:[NSDictionary class]]) {
                                                                 if (failureBlock) {
                                                                     failureBlock([MarvelClient errorWithCode:-1
                                                                                                       reason:@"Returned object is not a dictionary"]);
+                                                                }
+                                                            } else {
+                                                                NSDictionary* comicData = jsonData[@"data"];
+                                                                NSParameterAssert(comicData);
+                                                                if (successBlock) {
+                                                                    successBlock(comicData, response);
                                                                 }
                                                             }
                                                         }
@@ -115,6 +119,11 @@ static long s_timestamp = 1;
     return [NSError errorWithDomain:NSMarvelClientErrorDomain
                                code:code
                            userInfo:userInfo];
+}
+
++(NSString*)digest {
+    NSString* md5String = [NSString stringWithFormat:@"%ld%@%@", s_timestamp, [NSString stringWithUTF8String:s_kMarvelPrivateKey], [NSString stringWithUTF8String:s_kMarvelPublicKey]];
+    return [md5String md5];
 }
 
 @end

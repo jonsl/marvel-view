@@ -19,10 +19,28 @@
 		337C73D41E9F8B0200F0C9FB /* MarvelClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 337C73D31E9F8B0200F0C9FB /* MarvelClient.m */; };
 		338B607C1EB212B400E51C55 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 338B607B1EB212B400E51C55 /* placeholder.png */; };
 		339C23AD1EADF5FF00D7835F /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 339C23AC1EADF5FF00D7835F /* DatabaseManager.m */; };
+		33A25F631EC77C2600A6047A /* libNetworkClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33A25F601EC77C0C00A6047A /* libNetworkClient.a */; };
 		33D2170A1EB22C9D001AC256 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 33D217091EB22C9D001AC256 /* .gitignore */; };
 		33D2170C1EB246F3001AC256 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 33D2170B1EB246F3001AC256 /* Podfile */; };
 		626E702D3440DDA29CF40866 /* libPods-marvel-view.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAD02FEB74BF04EBCBF917E /* libPods-marvel-view.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		33A25F5F1EC77C0C00A6047A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33A25F5B1EC77C0C00A6047A /* NetworkClient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3301D7161EC7679D003B85A4;
+			remoteInfo = NetworkClient;
+		};
+		33A25F611EC77C1F00A6047A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33A25F5B1EC77C0C00A6047A /* NetworkClient.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 3301D7151EC7679D003B85A4;
+			remoteInfo = NetworkClient;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3310BCD21EAF7B0300307CB9 /* Comic+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Comic+CoreDataProperties.h"; path = "schema/Comic+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -47,6 +65,7 @@
 		339C23AA1EADF3DD00D7835F /* Comic+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Comic+CoreDataClass.h"; path = "schema/Comic+CoreDataClass.h"; sourceTree = "<group>"; };
 		339C23AB1EADF5FF00D7835F /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatabaseManager.h; path = schema/DatabaseManager.h; sourceTree = "<group>"; };
 		339C23AC1EADF5FF00D7835F /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatabaseManager.m; path = schema/DatabaseManager.m; sourceTree = "<group>"; };
+		33A25F5B1EC77C0C00A6047A /* NetworkClient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = NetworkClient.xcodeproj; sourceTree = "<group>"; };
 		33D217091EB22C9D001AC256 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		33D2170B1EB246F3001AC256 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7EB9D9CDDF940FF5D752409D /* Pods-marvel-view.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-marvel-view.release.xcconfig"; path = "Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view.release.xcconfig"; sourceTree = "<group>"; };
@@ -59,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33A25F631EC77C2600A6047A /* libNetworkClient.a in Frameworks */,
 				626E702D3440DDA29CF40866 /* libPods-marvel-view.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,6 +89,7 @@
 		33557FDE1E9F6E26007B5194 = {
 			isa = PBXGroup;
 			children = (
+				33A25F5B1EC77C0C00A6047A /* NetworkClient.xcodeproj */,
 				33D217091EB22C9D001AC256 /* .gitignore */,
 				33D2170B1EB246F3001AC256 /* Podfile */,
 				33557FE91E9F6E26007B5194 /* marvel-view */,
@@ -143,6 +164,14 @@
 			name = extensions;
 			sourceTree = "<group>";
 		};
+		33A25F5C1EC77C0C00A6047A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				33A25F601EC77C0C00A6047A /* libNetworkClient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		33A74B611EA75FE800A66762 /* schema */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +217,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				33A25F621EC77C1F00A6047A /* PBXTargetDependency */,
 			);
 			name = "marvel-view";
 			productName = "marvel-view";
@@ -221,12 +251,28 @@
 			mainGroup = 33557FDE1E9F6E26007B5194;
 			productRefGroup = 33557FE81E9F6E26007B5194 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 33A25F5C1EC77C0C00A6047A /* Products */;
+					ProjectRef = 33A25F5B1EC77C0C00A6047A /* NetworkClient.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				33557FE61E9F6E26007B5194 /* marvel-view */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		33A25F601EC77C0C00A6047A /* libNetworkClient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libNetworkClient.a;
+			remoteRef = 33A25F5F1EC77C0C00A6047A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		33557FE51E9F6E26007B5194 /* Resources */ = {
@@ -310,6 +356,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		33A25F621EC77C1F00A6047A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NetworkClient;
+			targetProxy = 33A25F611EC77C1F00A6047A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		33557FF31E9F6E26007B5194 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -357,6 +411,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -371,6 +426,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -406,6 +462,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -414,6 +471,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
