@@ -7,14 +7,11 @@
 //
 
 #import "NetworkClient.h"
-#import "NetworkRequestQueue.h"
 #import "Reachability.h"
 
 @interface NetworkClient()
 
 @property (nonatomic) Reachability* reachability;
-
-@property (nonatomic, strong) NetworkRequestQueue* queue;
 
 @end
 

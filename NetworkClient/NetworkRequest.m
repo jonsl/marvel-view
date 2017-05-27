@@ -7,23 +7,17 @@
 //
 
 #import "NetworkRequest.h"
+#import "NetworkClient.h"
 
 static NSString* const kNetworkErrorErrorDomain = @"NetworkErrorErrorDomain";
 
-@implementation NetworkRequest {
-    
-}
-
-@synthesize ready = _ready;
-
-@synthesize executing = _executing;
-
-@synthesize finished = _finished;
+@implementation NetworkRequest
 
 -(instancetype)initWithUrl:(NSURL*)url
                 httpMethod:(NSString*)httpMethod
                   userInfo:(NSDictionary*)userInfo
-                completion:(RequestCompletionBlock)completion {
+                   success:(RequestSuccessBlock)success
+                   failure:(RequestFailureBlock)failure {
 
     if ((self = [super init])) {
         
@@ -34,90 +28,52 @@ static NSString* const kNetworkErrorErrorDomain = @"NetworkErrorErrorDomain";
         
         self.request = request;
         self.userInfo = userInfo;
-        self.completion = completion;
-        
-        self.ready = YES;
-        
+        self.success = success;
+        self.failure = failure;
+
     }
     return self;
 }
 
--(void)setReady:(BOOL)ready {
+-(void)main {
     
-    if (_ready != ready) {
-        [self willChangeValueForKey:NSStringFromSelector(@selector(isReady))];
-        _ready = ready;
-        [self didChangeValueForKey:NSStringFromSelector(@selector(isReady))];
-    }
-}
-
--(BOOL)isReady {
-    return _ready;
-}
-
--(void)setExecuting:(BOOL)executing {
-    if (_executing != executing) {
-        [self willChangeValueForKey:NSStringFromSelector(@selector(isExecuting))];
-        _executing = executing;
-        [self didChangeValueForKey:NSStringFromSelector(@selector(isExecuting))];
-    }
-}
-
--(BOOL)isExecuting {
-    return _executing;
-}
-
--(void)setFinished:(BOOL)finished {
-    if (_finished != finished) {
-        [self willChangeValueForKey:NSStringFromSelector(@selector(isFinished))];
-        _finished = finished;
-        [self didChangeValueForKey:NSStringFromSelector(@selector(isFinished))];
-    }
-}
-
--(BOOL)isFinished {
-    return _finished;
-}
-
--(void)start {
-    if (!self.isExecuting) {
-        self.ready = NO;
-        self.executing = YES;
-        self.finished = NO;
-        
-        NSLog(@"%@ operation started", self.name);
-    }
+    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
     
     NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:self.request
                                                                  completionHandler:^(NSData* _Nullable data, NSURLResponse* _Nullable response, NSError* _Nullable error) {
                                                                      
-                                                                     if (self.completionBlock) {
-                                                                         self.completion(data, response, error);
+                                                                     NSParameterAssert([response isKindOfClass:[NSHTTPURLResponse class]]);
+                                                                     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+                                                                     
+                                                                     NSError* jsonError = nil;
+                                                                     id jsonData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+                                                                     
+                                                                     if (error || jsonError || httpResponse.statusCode != 200) {
+                                                                         
+                                                                         if (self.failure) {
+                                                                             NSError* failureError = error != nil ? error : [NSError errorWithDomain:kNetworkErrorErrorDomain
+                                                                                                                                                code:httpResponse.statusCode
+                                                                                                                                            userInfo:jsonData];
+                                                                             NSLog(@"error: %@", failureError);
+                                                                             self.failure(failureError);
+                                                                         }
+                                                                         
+                                                                     } else {
+                                                                         
+                                                                         if (self.success) {
+                                                                             self.success(jsonData, response);
+                                                                         }
                                                                      }
                                                                      
-                                                                     [self finish];
+                                                                     ++self.requestCount;
                                                                      
+                                                                     dispatch_semaphore_signal(sem);
                                                                  }];
     
     [task resume];
 
-    ++self.requestCount;
-    
-}
+    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
 
--(void)finish {
-    if (self.isExecuting) {
-        self.executing = NO;
-        self.finished = YES;
-        
-        NSLog(@"%@ operation finished", self.name);
-    }
-}
-
--(void)cancel {
-    [super cancel];
-
-    [self finish];
 }
 
 @end

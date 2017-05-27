@@ -160,11 +160,12 @@ static int const kRequestSize = 20;
                                                          }
                                                          failureBlock:^(NSError *error) {
                                                              
-                                                             NSLog(@"requestData failed with: %@", [error description]);
                                                              
                                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                                 
+                                                                 NSString* message = [NSString stringWithFormat:@"%@:%@", error.localizedDescription, error.userInfo];
                                                                  UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Network Error"
-                                                                                                                                 message:[error localizedDescription]
+                                                                                                                                 message:message
                                                                                                                           preferredStyle:UIAlertControllerStyleAlert];
                                                                  
                                                                  UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"

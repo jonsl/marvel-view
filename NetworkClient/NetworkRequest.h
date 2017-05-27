@@ -8,23 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^RequestCompletionBlock)(NSData* data, NSURLResponse* response, NSError* error);
+typedef void (^RequestSuccessBlock)(id data, NSURLResponse* response);
+typedef void (^RequestFailureBlock)(NSError* error);
 
 @interface NetworkRequest : NSOperation
 
 -(instancetype)initWithUrl:(NSURL*)url
                 httpMethod:(NSString*)httpMethod
                   userInfo:(NSDictionary*)userInfo
-                completion:(RequestCompletionBlock)completion;
+                   success:(RequestSuccessBlock)success
+                   failure:(RequestFailureBlock)failure;
 
 @property (nonatomic, strong) NSURLRequest* request;
 
 @property (nonatomic, assign) int requestCount;
 
-//@property (nonatomic, strong) NSOperationQueue* queue;
+@property (nonatomic, weak) NSOperationQueue* queue;
 
 @property (nonatomic, strong) NSDictionary* userInfo;
 
-@property (nonatomic, copy) RequestCompletionBlock completion;
+@property (nonatomic, copy) RequestSuccessBlock success;
+
+@property (nonatomic, copy) RequestFailureBlock failure;
 
 @end

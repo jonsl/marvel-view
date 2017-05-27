@@ -19,11 +19,11 @@
     return self;
 }
 
-//-(void)dealloc {
-//    for (NetworkRequest* request in [self operations]) {
-//        request.queue = nil;
-//    }
-//}
+-(void)dealloc {
+    for (NetworkRequest* request in [self operations]) {
+        request.queue = nil;
+    }
+}
 
 -(void)setSuspended:(BOOL)suspended {
     [super setSuspended:suspended];
@@ -40,7 +40,7 @@
     
     [super addOperation:op];
     
-//    ((NetworkRequest*)op).queue = self;
+    ((NetworkRequest*)op).queue = self;
 }
 
 @end

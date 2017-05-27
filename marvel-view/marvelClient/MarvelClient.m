@@ -39,10 +39,6 @@ static long s_timestamp = 1;
                         successBlock:(ComicRequestSuccessBlock)successBlock
                         failureBlock:(ComicRequestFailureBlock)failureBlock {
 
-    NSURLSessionConfiguration* configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:configuration];
-
     int requestOffset = offset;
     for (; requestOffset < (offset + count); requestOffset += requestSize) {
 
@@ -58,52 +54,35 @@ static long s_timestamp = 1;
                 [urlString appendFormat:@"&orderBy=%@", orderBy];
             }
         }
-        
-        NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-        [request setHTTPMethod:@"GET"];
-        [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
-        [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@&offset=%i", urlString, offset]]];
-//        request.timeoutInterval = kRequestTimeout;
+        NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@&offset=%i", urlString, offset]];
 
-//        NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:request
-        NSURLSessionDataTask* task = [session dataTaskWithRequest:request
-                                                completionHandler:^(NSData* _Nullable data, NSURLResponse* _Nullable response, NSError* _Nullable error) {
-                                                    
-                                                    if (error) {
-                                                        
-                                                        if (failureBlock) {
-                                                            failureBlock(error);
-                                                        }
-                                                        
-                                                    } else {
-                                                        
-                                                        if (successBlock) {
-                                                            
-                                                            NSError* error = nil;
-                                                            id jsonData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-                                                            if (error) {
-                                                                if (failureBlock) {
-                                                                    failureBlock(error);
-                                                                }
-                                                            } else if (![jsonData isKindOfClass:[NSDictionary class]]) {
-                                                                if (failureBlock) {
-                                                                    failureBlock([MarvelClient errorWithCode:-1
-                                                                                                      reason:@"Returned object is not a dictionary"]);
-                                                                }
-                                                            } else {
-                                                                NSDictionary* comicData = jsonData[@"data"];
-                                                                NSParameterAssert(comicData);
-                                                                if (successBlock) {
-                                                                    successBlock(comicData, response);
-                                                                }
-                                                            }
-                                                        }
-                                                        
-                                                    }
-                                                    
-                                                }];
+        NetworkRequest* request = [[NetworkRequest alloc] initWithUrl:url
+                                                           httpMethod:@"GET"
+                                                             userInfo:nil
+                                                              success:^(id data, NSURLResponse *response) {
+
+                                                                  if ([data isKindOfClass:[NSDictionary class]]) {
+                                                                      
+                                                                      NSDictionary* comicData = data[@"data"];
+
+                                                                      NSParameterAssert(comicData);
+                                                                      
+                                                                      if (successBlock) {
+                                                                          successBlock(comicData, response);
+                                                                      }
+                                                                      
+                                                                  }
+
+                                                              }
+                                                              failure:^(NSError *error) {
+                                                                  
+                                                                  if (failureBlock) {
+                                                                      failureBlock(error);
+                                                                  }
+                                                                  
+                                                              }];
         
-        [task resume];
+        [[NetworkClient sharedInstance].queue addRequest:request];
 
         ++s_timestamp;
     }
