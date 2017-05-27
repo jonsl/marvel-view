@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef void (^RequestSuccessBlock)(id data, NSURLResponse* response);
+
 typedef void (^RequestFailureBlock)(NSError* error);
 
 @interface NetworkRequest : NSOperation

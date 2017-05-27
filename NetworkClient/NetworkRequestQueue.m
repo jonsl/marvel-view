@@ -12,25 +12,25 @@
 
 -(instancetype)init {
     if ((self = [super init])) {
-        
+
         self.maxConcurrentOperationCount = 1;
-        
+
     }
     return self;
 }
 
 -(void)setSuspended:(BOOL)suspended {
     [super setSuspended:suspended];
-    
+
 }
 
--(void)addOperation:(NSOperation *)op {
-    
+-(void)addOperation:(NSOperation*)op {
+
     NSParameterAssert([op isKindOfClass:[NetworkRequest class]]);
-    
+
     [super addOperation:op];
-    
-    ((NetworkRequest*)op).queue = self;
+
+    ((NetworkRequest*) op).queue = self;
 }
 
 @end

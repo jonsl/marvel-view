@@ -10,7 +10,7 @@
 
 @interface NetworkClient : NSObject
 
-+(instancetype)sharedInstance;
+-(instancetype)init;
 
 -(void)addRequest:(NetworkRequest*)request;
 

@@ -2,10 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b7ab695-3ea4-47ba-987f-3d8a16652d0b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view.xcodeproj/project.xcworkspace/xcuserdata/jonathanslater.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/marvel-view.xcodeproj/project.xcworkspace/xcuserdata/jonathanslater.xcuserdatad/UserInterfaceState.xcuserstate" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/ViewController.m" afterPath="$PROJECT_DIR$/marvel-view/ViewController.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.m" afterPath="$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/marvelClient/WebRequest.m" afterPath="$PROJECT_DIR$/marvel-view/marvelClient/WebRequest.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marvel-view/schema/ComicsManager.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewCell.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewCell.m" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.m" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marvel-view/schema/DatabaseManager.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marvel-view/schema/DatabaseManager.m" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.h" afterPath="$PROJECT_DIR$/marvel-view/schema/ComicsManager.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/marvel-view.iml" afterPath="$PROJECT_DIR$/.idea/marvel-view.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NetworkClient/NetworkClient.h" afterPath="$PROJECT_DIR$/NetworkClient/NetworkClient.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NetworkClient/NetworkClient.m" afterPath="$PROJECT_DIR$/NetworkClient/NetworkClient.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NetworkClient/NetworkRequest.h" afterPath="$PROJECT_DIR$/NetworkClient/NetworkRequest.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NetworkClient/NetworkRequest.m" afterPath="$PROJECT_DIR$/NetworkClient/NetworkRequest.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NetworkClient/NetworkRequestQueue.m" afterPath="$PROJECT_DIR$/NetworkClient/NetworkRequestQueue.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/marvel-view.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view.xcworkspace/xcuserdata/jonathanslater.xcuserdatad/xcdebugger/Expressions.xcexplist" afterPath="$PROJECT_DIR$/marvel-view.xcworkspace/xcuserdata/jonathanslater.xcuserdatad/xcdebugger/Expressions.xcexplist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/Assets.xcassets/AppIcon.appiconset/Contents.json" afterPath="$PROJECT_DIR$/marvel-view/Assets.xcassets/AppIcon.appiconset/Contents.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/Base.lproj/Main.storyboard" afterPath="$PROJECT_DIR$/marvel-view/Base.lproj/Main.storyboard" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/extensions/Extensions.m" afterPath="$PROJECT_DIR$/marvel-view/extensions/Extensions.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/main.m" afterPath="$PROJECT_DIR$/marvel-view/main.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/marvel_view.xcdatamodeld/marvel_view.xcdatamodel/contents" afterPath="$PROJECT_DIR$/marvel-view/marvel_view.xcdatamodeld/marvel_view.xcdatamodel/contents" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/viewControllers/ComicDetailViewController.m" afterPath="$PROJECT_DIR$/marvel-view/viewControllers/ComicDetailViewController.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewController.m" afterPath="$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewController.m" />
     </list>
     <ignored path="marvel-view.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -19,54 +38,94 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_9cb01ec7aa68f6c6f0f5d7d0926a031e664e061c" />
   <component name="FavoritesManager">
     <favorites_list name="marvel-view" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Extensions.h" pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Extensions.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marvel-view/extensions/Extensions.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="240">
+              <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Extensions.m" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/marvel-view/extensions/Extensions.m">
+      <file leaf-file-name="ComicsTableViewController.m" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewController.m">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state relative-caret-position="254">
+              <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MarvelClient.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.h">
+      <file leaf-file-name="ComicsTableViewController.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewController.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.m" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marvel-view/main.m">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MarvelClient.m" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.m">
+      <file leaf-file-name="ComicDetailViewController.m" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicDetailViewController.m">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+            <state relative-caret-position="570">
+              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WebRequest.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/WebRequest.h">
+      <file leaf-file-name="ComicDetailViewController.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicDetailViewController.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ComicsManager.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marvel-view/schema/ComicsManager.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ComicsTableViewCell.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewCell.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ComicsTableViewCell.m" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewCell.m">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
               <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
@@ -75,21 +134,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WebRequest.m" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/WebRequest.m">
+      <file leaf-file-name="ComicsManager.m" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marvel-view/schema/ComicsManager.m">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="870">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ViewController.m" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/marvel-view/ViewController.m">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+            <state relative-caret-position="434">
+              <caret line="148" column="20" selection-start-line="148" selection-start-column="20" selection-end-line="148" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -103,9 +152,31 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.m" />
         <option value="$PROJECT_DIR$/marvel-view/marvelClient/WebRequest.m" />
         <option value="$PROJECT_DIR$/marvel-view/ViewController.m" />
+        <option value="$PROJECT_DIR$/marvel-view/extensions/Extensions.h" />
+        <option value="$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.m" />
+        <option value="$PROJECT_DIR$/marvel-view/marvelClient/DataManager.h" />
+        <option value="$PROJECT_DIR$/marvel-view/marvelClient/DataManager.m" />
+        <option value="$PROJECT_DIR$/marvel-view/schema/DatabaseManager.m" />
+        <option value="$PROJECT_DIR$/marvel-view/schema/DatabaseManager.h" />
+        <option value="$PROJECT_DIR$/marvel-view/schema/Comic+CoreDataProperties.h" />
+        <option value="$PROJECT_DIR$/marvel-view/extensions/Extensions.m" />
+        <option value="$PROJECT_DIR$/NetworkClient/NetworkRequestQueue.m" />
+        <option value="$PROJECT_DIR$/NetworkClient/NetworkRequest.m" />
+        <option value="$PROJECT_DIR$/NetworkClient/NetworkRequest.h" />
+        <option value="$PROJECT_DIR$/NetworkClient/NetworkClient.m" />
+        <option value="$PROJECT_DIR$/marvel-view/viewControllers/ComicDetailViewController.m" />
+        <option value="$PROJECT_DIR$/marvel-view/schema/DataManager.h" />
+        <option value="$PROJECT_DIR$/marvel-view/schema/ComicDataManager.h" />
+        <option value="$PROJECT_DIR$/marvel-view/schema/ComicData.h" />
+        <option value="$PROJECT_DIR$/marvel-view/schema/ComicsManager.h" />
+        <option value="$PROJECT_DIR$/marvel-view/viewControllers/ComicTableViewCell.h" />
+        <option value="$PROJECT_DIR$/marvel-view/schema/ComicsManager.m" />
+        <option value="$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewCell.h" />
+        <option value="$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewCell.m" />
+        <option value="$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewController.m" />
+        <option value="$PROJECT_DIR$/marvel-view/main.m" />
       </list>
     </option>
   </component>
@@ -146,6 +217,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Cidr.FilesView" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -186,7 +258,43 @@
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="marvelClient" />
+              <option name="myItemId" value="viewControllers" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="marvel-view" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="marvel-view" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Supporting Files" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="marvel-view" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="marvel-view" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="schema" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -208,9 +316,40 @@
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="marvel-view" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NetworkClient" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="marvel-view" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NetworkClient" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NetworkClient" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Cidr.FilesView" />
     </panes>
   </component>
   <component name="RunManager" selected="Application.marvel-view">
@@ -221,6 +360,27 @@
       </EXTENSION>
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="OCGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="marvel-view" TARGET_NAME="marvel-view" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="OCUnitRunConfiguration" factoryName="XCTest/Kiwi" PASS_PARENT_ENVS_2="true" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="false" name="marvel-view" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="marvel-view" TARGET_NAME="marvel-view" CONFIG_NAME="Debug" SCHEME_NAME="marvel-view" RUN_TARGET_PROJECT_NAME="marvel-view" RUN_TARGET_NAME="marvel-view" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
       <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
@@ -228,8 +388,16 @@
       </EXTENSION>
       <method />
     </configuration>
-    <list size="1">
+    <configuration default="false" name="NetworkClient" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="NetworkClient" TARGET_NAME="NetworkClient" CONFIG_NAME="Debug" SCHEME_NAME="NetworkClient" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
+      <envs />
+      <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
+        <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
+      </EXTENSION>
+      <method />
+    </configuration>
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.marvel-view" />
+      <item index="1" class="java.lang.String" itemvalue="Application.NetworkClient" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -246,34 +414,35 @@
       <option name="presentableId" value="Default" />
       <updated>1492249431591</updated>
       <workItem from="1492249434840" duration="104000" />
+      <workItem from="1495887804954" duration="2471000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104000" />
+    <option name="totallyTimeSpent" value="2575000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2517" y="26" width="1500" height="1409" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2494929" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -294,21 +463,23 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/marvel-view/extensions/Extensions.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/marvel-view/extensions/Extensions.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
+        <state relative-caret-position="465">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#230#252#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.h">
+    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/DataManager.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
@@ -316,15 +487,156 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/MarvelClient.m">
+    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/DataManager.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
+        <state relative-caret-position="780">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/WebRequest.h">
+    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/WebRequest.h" />
+    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/WebRequest.m" />
+    <entry file="file://$PROJECT_DIR$/marvel-view/ViewController.m" />
+    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/DataManager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/DataManager.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-181">
+          <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/schema/Comic+CoreDataProperties.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/schema/Comic+CoreDataClass.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/extensions/Extensions.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+          <folding>
+            <element signature="e#230#252#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NetworkClient/Reachability.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NetworkClient/NetworkRequestQueue.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NetworkClient/NetworkRequest.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NetworkClient/NetworkRequest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NetworkClient/NetworkClient.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NetworkClient/NetworkClient.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NetworkClient/NetworkRequestQueue.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/schema/ComicsManager.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="148" column="20" selection-start-line="148" selection-start-column="20" selection-end-line="148" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/schema/ComicsManager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicDetailViewController.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicDetailViewController.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewCell.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewCell.m">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
@@ -332,18 +644,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marvel-view/marvelClient/WebRequest.m">
+    <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewController.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+        <state relative-caret-position="254">
+          <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marvel-view/ViewController.m">
+    <entry file="file://$PROJECT_DIR$/marvel-view/viewControllers/ComicsTableViewController.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/main.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marvel-view/extensions/Extensions.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
           <folding />
         </state>
       </provider>

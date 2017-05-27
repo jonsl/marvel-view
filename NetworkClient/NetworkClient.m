@@ -19,20 +19,9 @@
 
 @implementation NetworkClient
 
-+(instancetype)sharedInstance {
-    static NetworkClient* instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-
-        instance = [[NetworkClient alloc] init];
-        
-    });
-    return instance;
-}
-
 -(instancetype)init {
     if ((self = [super init])) {
-        
+
         self.queue = [[NetworkRequestQueue alloc] init];
 
         /*
@@ -48,16 +37,16 @@
 }
 
 -(void)dealloc {
-    
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
-    
+
 }
 
 -(void)addRequest:(NetworkRequest*)request {
     [self.queue addOperation:request];
 }
 
--(void)setRemoteHostName:(NSString *)remoteHostName {
+-(void)setRemoteHostName:(NSString*)remoteHostName {
     if (_remoteHostName != remoteHostName) {
         self.reachability = [Reachability reachabilityWithHostName:remoteHostName];
         [self.reachability startNotifier];
@@ -68,7 +57,7 @@
 /*
  * Called by Reachability whenever status changes.
  */
-- (void) reachabilityChanged:(NSNotification*)notification {
+-(void)reachabilityChanged:(NSNotification*)notification {
     Reachability* reachability = [notification object];
     NSParameterAssert([reachability isKindOfClass:[Reachability class]]);
     [self updateReachability:reachability];
@@ -77,9 +66,10 @@
 -(void)updateReachability:(Reachability*)reachability {
     NetworkStatus networkStatus = [reachability currentReachabilityStatus];
     BOOL connectionRequired = [reachability connectionRequired];
-    
+
     switch (networkStatus) {
         case NotReachable: {
+//            self.queue.suspended = YES;
             break;
         }
         case ReachableViaWiFi: {
