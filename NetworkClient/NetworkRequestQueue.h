@@ -10,6 +10,4 @@
 
 @interface NetworkRequestQueue : NSOperationQueue
 
--(void)addRequest:(NetworkRequest*)request;
-
 @end

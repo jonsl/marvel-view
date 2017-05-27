@@ -54,9 +54,9 @@ static long s_timestamp = 1;
                 [urlString appendFormat:@"&orderBy=%@", orderBy];
             }
         }
-        NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@&offset=%i", urlString, offset]];
+        [urlString appendFormat:@"&offset=%i", offset];
 
-        NetworkRequest* request = [[NetworkRequest alloc] initWithUrl:url
+        NetworkRequest* request = [[NetworkRequest alloc] initWithUrl:[NSURL URLWithString:urlString]
                                                            httpMethod:@"GET"
                                                              userInfo:nil
                                                               success:^(id data, NSURLResponse *response) {
@@ -64,8 +64,7 @@ static long s_timestamp = 1;
                                                                   if ([data isKindOfClass:[NSDictionary class]]) {
                                                                       
                                                                       NSDictionary* comicData = data[@"data"];
-
-                                                                      NSParameterAssert(comicData);
+                                                                      NSAssert(comicData, @"invalid comic data");
                                                                       
                                                                       if (successBlock) {
                                                                           successBlock(comicData, response);
@@ -82,7 +81,7 @@ static long s_timestamp = 1;
                                                                   
                                                               }];
         
-        [[NetworkClient sharedInstance].queue addRequest:request];
+        [[NetworkClient sharedInstance] addRequest:request];
 
         ++s_timestamp;
     }

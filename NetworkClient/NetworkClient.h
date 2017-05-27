@@ -12,8 +12,8 @@
 
 +(instancetype)sharedInstance;
 
-@property (nonatomic, strong) NSString* remoteHostName;
+-(void)addRequest:(NetworkRequest*)request;
 
-@property (nonatomic, strong) NetworkRequestQueue* queue;
+@property (nonatomic, strong) NSString* remoteHostName;
 
 @end

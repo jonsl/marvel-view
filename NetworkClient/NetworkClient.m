@@ -11,7 +11,9 @@
 
 @interface NetworkClient()
 
-@property (nonatomic) Reachability* reachability;
+@property (nonatomic, strong) NSOperationQueue* queue;
+
+@property (nonatomic, strong) Reachability* reachability;
 
 @end
 
@@ -51,6 +53,10 @@
     
 }
 
+-(void)addRequest:(NetworkRequest*)request {
+    [self.queue addOperation:request];
+}
+
 -(void)setRemoteHostName:(NSString *)remoteHostName {
     if (_remoteHostName != remoteHostName) {
         self.reachability = [Reachability reachabilityWithHostName:remoteHostName];
@@ -69,17 +75,29 @@
 }
 
 -(void)updateReachability:(Reachability*)reachability {
-    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
     BOOL connectionRequired = [reachability connectionRequired];
+    
+    switch (networkStatus) {
+        case NotReachable: {
+            break;
+        }
+        case ReachableViaWiFi: {
+            break;
+        }
+        case ReachableViaWWAN: {
+            break;
+        }
+    }
 
-        if (connectionRequired)
-        {
+//        if (connectionRequired)
+//        {
 //            baseLabelText = NSLocalizedString(@"Cellular data network is available.\nInternet traffic will be routed through it after a connection is established.", @"Reachability text if a connection is required");
-        }
-        else
-        {
+//        }
+//        else
+//        {
 //            baseLabelText = NSLocalizedString(@"Cellular data network is active.\nInternet traffic will be routed through it.", @"Reachability text if a connection is not required");
-        }
+//        }
 }
 
 @end

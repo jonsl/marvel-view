@@ -19,24 +19,14 @@
     return self;
 }
 
--(void)dealloc {
-    for (NetworkRequest* request in [self operations]) {
-        request.queue = nil;
-    }
-}
-
 -(void)setSuspended:(BOOL)suspended {
     [super setSuspended:suspended];
     
 }
 
--(void)addRequest:(NetworkRequest*)request {
-    [self addOperation:request];
-}
-
-- (void)addOperation:(NSOperation *)op {
+-(void)addOperation:(NSOperation *)op {
     
-    NSAssert([op isKindOfClass:[NetworkRequest class]], @"invalid request added to queue");
+    NSParameterAssert([op isKindOfClass:[NetworkRequest class]]);
     
     [super addOperation:op];
     
