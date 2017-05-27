@@ -23,6 +23,7 @@
 		33D2170A1EB22C9D001AC256 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 33D217091EB22C9D001AC256 /* .gitignore */; };
 		33D2170C1EB246F3001AC256 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 33D2170B1EB246F3001AC256 /* Podfile */; };
 		626E702D3440DDA29CF40866 /* libPods-marvel-view.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAD02FEB74BF04EBCBF917E /* libPods-marvel-view.a */; };
+		7852FB0B3BD743E5ED6981DA /* MarvelClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7852F52CB44EB494C49B2F4A /* MarvelClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,9 @@
 		33D109891ED9FE5F007A1B4E /* ComicsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComicsTableViewCell.m; path = viewControllers/ComicsTableViewCell.m; sourceTree = "<group>"; };
 		33D217091EB22C9D001AC256 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		33D2170B1EB246F3001AC256 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7852F52CB44EB494C49B2F4A /* MarvelClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarvelClient.m; sourceTree = "<group>"; };
+		7852FAF8F26EE19D2103E1B8 /* MarvelApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarvelApiClient.h; sourceTree = "<group>"; };
+		7852FDF7A5EA25AE24C3BB15 /* MarvelClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarvelClient.h; sourceTree = "<group>"; };
 		7EB9D9CDDF940FF5D752409D /* Pods-marvel-view.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-marvel-view.release.xcconfig"; path = "Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view.release.xcconfig"; sourceTree = "<group>"; };
 		AB25F0A22486F6648FAD511A /* Pods-marvel-view.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-marvel-view.debug.xcconfig"; path = "Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view.debug.xcconfig"; sourceTree = "<group>"; };
 		BFAD02FEB74BF04EBCBF917E /* libPods-marvel-view.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-marvel-view.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,18 +114,19 @@
 		33557FE91E9F6E26007B5194 /* marvel-view */ = {
 			isa = PBXGroup;
 			children = (
-				33A74B611EA75FE800A66762 /* schema */,
-				335CD7A81EA4CEEF00EF4BD5 /* viewControllers */,
-				337C73CC1E9F88A000F0C9FB /* extensions */,
 				33557FED1E9F6E26007B5194 /* AppDelegate.h */,
 				33557FEE1E9F6E26007B5194 /* AppDelegate.m */,
-				338B607B1EB212B400E51C55 /* placeholder.png */,
-				33557FF31E9F6E26007B5194 /* Main.storyboard */,
 				33557FF91E9F6E26007B5194 /* Assets.xcassets */,
-				33557FFB1E9F6E26007B5194 /* LaunchScreen.storyboard */,
+				7852F1F436E3FCA48ED8A277 /* client */,
+				337C73CC1E9F88A000F0C9FB /* extensions */,
 				33557FFE1E9F6E26007B5194 /* Info.plist */,
+				33557FFB1E9F6E26007B5194 /* LaunchScreen.storyboard */,
+				33557FF31E9F6E26007B5194 /* Main.storyboard */,
 				33557FF61E9F6E26007B5194 /* marvel_view.xcdatamodeld */,
+				338B607B1EB212B400E51C55 /* placeholder.png */,
+				33A74B611EA75FE800A66762 /* schema */,
 				33557FEA1E9F6E26007B5194 /* Supporting Files */,
+				335CD7A81EA4CEEF00EF4BD5 /* viewControllers */,
 			);
 			path = "marvel-view";
 			sourceTree = "<group>";
@@ -182,6 +187,16 @@
 				7EB9D9CDDF940FF5D752409D /* Pods-marvel-view.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		7852F1F436E3FCA48ED8A277 /* client */ = {
+			isa = PBXGroup;
+			children = (
+				7852FAF8F26EE19D2103E1B8 /* MarvelApiClient.h */,
+				7852F52CB44EB494C49B2F4A /* MarvelClient.m */,
+				7852FDF7A5EA25AE24C3BB15 /* MarvelClient.h */,
+			);
+			path = client;
 			sourceTree = "<group>";
 		};
 		8D166D408E3D459BAF74049C /* Frameworks */ = {
@@ -343,6 +358,7 @@
 				33D1098A1ED9FE5F007A1B4E /* ComicsTableViewCell.m in Sources */,
 				337C73D11E9F898500F0C9FB /* Extensions.m in Sources */,
 				33557FEF1E9F6E26007B5194 /* AppDelegate.m in Sources */,
+				7852FB0B3BD743E5ED6981DA /* MarvelClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

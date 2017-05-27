@@ -9,15 +9,16 @@
 #import "NetworkRequest.h"
 #import "NetworkClient.h"
 
-static NSString* const kNetworkErrorErrorDomain = @"NetworkErrorErrorDomain";
+static NSString* const kNetworkErrorDomain = @"NetworkErrorErrorDomain";
 
 @implementation NetworkRequest
 
 -(instancetype)initWithUrl:(NSURL*)url
                 httpMethod:(NSString*)httpMethod
+                   timeOut:(NSTimeInterval)timeOut
                   userInfo:(NSDictionary*)userInfo
-                   success:(RequestSuccessBlock)success
-                   failure:(RequestFailureBlock)failure {
+                   success:(RequestSuccess)success
+                   failure:(RequestFailure)failure {
 
     if ((self = [super init])) {
 
@@ -25,6 +26,9 @@ static NSString* const kNetworkErrorErrorDomain = @"NetworkErrorErrorDomain";
         [request setHTTPMethod:httpMethod];
         [request setCachePolicy:NSURLRequestUseProtocolCachePolicy];
         [request setURL:url];
+        if (timeOut > 0) {
+            [request setTimeoutInterval:timeOut];
+        }
 
         self.request = request;
         self.userInfo = userInfo;
@@ -46,16 +50,19 @@ static NSString* const kNetworkErrorErrorDomain = @"NetworkErrorErrorDomain";
                                                                      NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*) response;
 
                                                                      NSError* jsonError = nil;
-                                                                     id jsonData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+                                                                     id jsonData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                                   options:NSJSONReadingMutableContainers
+                                                                                                                     error:&jsonError];
 
                                                                      if (error || jsonError || httpResponse.statusCode != 200) {
 
+                                                                         NSError* requestError = error != nil ? error : [NSError errorWithDomain:kNetworkErrorDomain
+                                                                                                                                            code:httpResponse.statusCode
+                                                                                                                                        userInfo:jsonData];
+                                                                         NSLog(@"error: %@", requestError);
+
                                                                          if (self.failure) {
-                                                                             NSError* failureError = error != nil ? error : [NSError errorWithDomain:kNetworkErrorErrorDomain
-                                                                                                                                                code:httpResponse.statusCode
-                                                                                                                                            userInfo:jsonData];
-                                                                             NSLog(@"error: %@", failureError);
-                                                                             self.failure(failureError);
+                                                                             self.failure(requestError);
                                                                          }
 
                                                                      } else {
@@ -73,7 +80,6 @@ static NSString* const kNetworkErrorErrorDomain = @"NetworkErrorErrorDomain";
     [task resume];
 
     dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-
 }
 
 @end

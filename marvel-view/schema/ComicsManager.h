@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "ComicsManager.h"
 
-extern int const kRequestSize;
+extern int const kRequestCount;
 
 extern NSString* kNewDataNotification;
 
@@ -20,7 +20,7 @@ extern NSString* kNewDataNotification;
 
 -(void)updateRequestsForRow:(int)row;
 
--(void)clear:(NSError**)error;
+-(void)clearData:(NSError**)error;
 
 @property (readonly, nonatomic) NSUInteger comicsCount;
 

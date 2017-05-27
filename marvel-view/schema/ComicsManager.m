@@ -11,34 +11,13 @@
 #import "ComicsManager.h"
 #import "Comic+CoreDataProperties.h"
 #import "Extensions.h"
+#import "MarvelClient.h"
 
-typedef void(^ComicRequestFailureBlock)(NSError* error);
-
-typedef NS_ENUM(NSInteger, SortOrderType) {
-
-    Ascending = 0,
-
-    Descending
-
-};
-
-int const kRequestSize = 10;
+int const kRequestCount = 10;
 
 NSString* kNewDataNotification = @"NewDataNotification";
 
 static int const kRequestMultiple = 4;
-
-//static NSTimeInterval const kRequestTimeout = 10.0;
-
-static NSString* const NSMarvelClientErrorDomain = @"MarvelClientErrorDomain";
-
-static char const* s_kMarvelBaseUrl = "https://gateway.marvel.com";
-static char const* s_kMarvelPublicKey = "d2b30c8bb5eed39c59922fef1cbd1994";
-static char const* s_kMarvelPrivateKey = "7ffe55d53a0635476808c96144380b23ba183448";
-
-static char const* s_kMarvelComicsEndpoint = "/v1/public/comics";
-
-static long s_timestamp = 1;
 
 @interface ComicsManager()
 
@@ -47,7 +26,7 @@ static long s_timestamp = 1;
 @end
 
 @implementation ComicsManager {
-    NetworkClient* _networkClient;
+    MarvelClient* _marvelClient;
 
     int _requestOffset;
 
@@ -65,7 +44,7 @@ static long s_timestamp = 1;
 -(instancetype)init {
     if ((self = [super init])) {
 
-        _networkClient = [[NetworkClient alloc] init];
+        _marvelClient = [[MarvelClient alloc] init];
 
     }
     return self;
@@ -73,80 +52,81 @@ static long s_timestamp = 1;
 
 -(void)updateRequestsForRow:(int)row {
 
-    BOOL shouldRequest = _requestOffset < (row + (kRequestSize * kRequestMultiple));
+    BOOL shouldRequest = _requestOffset < (row + (kRequestCount * kRequestMultiple));
 
     if (shouldRequest) {
 
-        [self requestWithSize:kRequestSize
-                 successBlock:^(NSDictionary* data, NSURLResponse* response) {
+        [_marvelClient requestComicsWithOffset:_requestOffset
+                                         count:kRequestCount
+                                  successBlock:^(NSDictionary* data, NSURLResponse* response) {
 
-                     NSManagedObjectContext* temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-                     temporaryContext.parentContext = self.mainManagedObjectContext;
+                                      NSParameterAssert(data);
+                                      
+                                      NSManagedObjectContext* temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+                                      temporaryContext.parentContext = self.mainManagedObjectContext;
 
-                     NSParameterAssert(data);
+                                      [temporaryContext performBlock:^{
 
-                     [temporaryContext performBlock:^{
+                                          NSArray* comics = data[@"results"];
 
-                         NSArray* comics = data[@"results"];
+                                          for (NSDictionary* comic in comics) {
+                                              [self insertNewComicEntityFromDictionary:comic managedObjectContext:temporaryContext];
+                                          }
 
-                         for (NSDictionary* comic in comics) {
-                             [self insertNewComicEntityFromDictionary:comic managedObjectContext:temporaryContext];
-                         }
+                                          NSError* error = nil;
+                                          if (![temporaryContext save:&error]) {
 
-                         NSError* error = nil;
-                         if (![temporaryContext save:&error]) {
+                                              NSLog(@"newDataNotification: temp context save error: %@", [error description]);
+                                          }
 
-                             NSLog(@"newDataNotification: temp context save error: %@", [error description]);
-                         }
+                                          [self.mainManagedObjectContext performBlock:^{
 
-                         [self.mainManagedObjectContext performBlock:^{
+                                              NSError* error = nil;
+                                              if (![self.mainManagedObjectContext save:&error]) {
 
-                             NSError* error = nil;
-                             if (![self.mainManagedObjectContext save:&error]) {
+                                                  NSLog(@"newDataNotification: main context save error: %@", [error description]);
 
-                                 NSLog(@"newDataNotification: main context save error: %@", [error description]);
+                                              }
 
-                             }
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [[NSNotificationCenter defaultCenter] postNotificationName:kNewDataNotification
+                                                                                                      object:self
+                                                                                                    userInfo:data];
+                                              });
 
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 [[NSNotificationCenter defaultCenter] postNotificationName:kNewDataNotification
-                                                                                     object:self
-                                                                                   userInfo:data];
-                             });
+                                          }];
 
-                         }];
+                                      }];
+                                  }
+                                  failureBlock:^(NSError* error) {
 
-                     }];
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          NSString* message = [NSString stringWithFormat:@"%@:%@", error.localizedDescription, error.userInfo];
+                                          UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Network Error"
+                                                                                                         message:message
+                                                                                                  preferredStyle:UIAlertControllerStyleAlert];
 
-                 }
-                 failureBlock:^(NSError* error) {
+                                          UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
+                                                                                       style:UIAlertActionStyleDefault
+                                                                                     handler:^(UIAlertAction* action) {
 
-                     dispatch_async(dispatch_get_main_queue(), ^{
-                         NSString* message = [NSString stringWithFormat:@"%@:%@", error.localizedDescription, error.userInfo];
-                         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Network Error"
-                                                                                        message:message
-                                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                                                                                         [alert dismissViewControllerAnimated:YES completion:nil];
 
-                         UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
-                                                                      style:UIAlertActionStyleDefault
-                                                                    handler:^(UIAlertAction* action) {
+                                                                                     }];
 
-                                                                        [alert dismissViewControllerAnimated:YES completion:nil];
+                                          [alert addAction:ok];
 
-                                                                    }];
+//                                          [self presentViewController:alert animated:YES completion:nil];
+                                      });
+                                  }];
 
-                         [alert addAction:ok];
-
-                         //                                            [self presentViewController:alert animated:YES completion:nil];
-                     });
-                 }];
+        _requestOffset += kRequestCount;
 
         NSLog(@"_requestOffset = %i, row = %i", _requestOffset, row);
     }
-
 }
 
--(void)clear:(NSError**)error {
+-(void)clearData:(NSError**)error {
     [self.mainManagedObjectContext performBlockAndWait:^void(void) {
 
         NSFetchRequest* fetchRequest = [Comic fetchRequest];
@@ -214,56 +194,6 @@ static long s_timestamp = 1;
         }
     }
     return entity;
-}
-
--(void)requestWithSize:(int)requestSize
-          successBlock:(void (^)(NSDictionary* data, NSURLResponse* response))successBlock
-          failureBlock:(void (^)(NSError*))failureBlock {
-
-    NSMutableString* urlString = [NSMutableString stringWithFormat:@"%@%@?ts=%ld&apikey=%@&hash=%@", [NSString stringWithUTF8String:s_kMarvelBaseUrl], [NSString stringWithUTF8String:s_kMarvelComicsEndpoint], s_timestamp, [NSString stringWithUTF8String:s_kMarvelPublicKey], [self digest]];
-
-    if (requestSize > 0) {
-        [urlString appendFormat:@"&limit=%i", requestSize];
-    }
-
-    [urlString appendFormat:@"&orderBy=-onsaleDate&orderBy=title"];
-    [urlString appendFormat:@"&offset=%i", _requestOffset];
-
-    NetworkRequest* request = [[NetworkRequest alloc] initWithUrl:[NSURL URLWithString:urlString]
-                                                       httpMethod:@"GET"
-                                                         userInfo:nil
-                                                          success:^(id data, NSURLResponse* response) {
-
-                                                              if ([data isKindOfClass:[NSDictionary class]]) {
-
-                                                                  NSDictionary* comicData = data[@"data"];
-                                                                  NSAssert(comicData, @"invalid comic data");
-
-                                                                  if (successBlock) {
-                                                                      successBlock(comicData, response);
-                                                                  }
-
-                                                              }
-
-                                                          }
-                                                          failure:^(NSError* error) {
-
-                                                              if (failureBlock) {
-                                                                  failureBlock(error);
-                                                              }
-
-                                                          }];
-
-    [_networkClient addRequest:request];
-
-    ++s_timestamp;
-
-    _requestOffset += requestSize;
-}
-
--(NSString*)digest {
-    NSString* md5String = [NSString stringWithFormat:@"%ld%@%@", s_timestamp, [NSString stringWithUTF8String:s_kMarvelPrivateKey], [NSString stringWithUTF8String:s_kMarvelPublicKey]];
-    return [md5String md5];
 }
 
 -(NSManagedObjectContext*)mainManagedObjectContext {

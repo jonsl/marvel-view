@@ -32,7 +32,7 @@
 
     NSFetchRequest* fetchRequest = [Comic fetchRequest];
     [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"onSaleDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]]];
-    [fetchRequest setFetchBatchSize:(NSUInteger) kRequestSize];
+    [fetchRequest setFetchBatchSize:(NSUInteger) kRequestCount];
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:self.mainManagedObjectContext
@@ -47,7 +47,7 @@
         NSLog(@"viewDidLoad: performFetch error: %@", [error description]);
     }
 
-    [[ComicsManager sharedInstance] clear:&error];
+    [[ComicsManager sharedInstance] clearData:&error];
     if (error) {
         NSLog(@"main clear error: %@", [error description]);
         return;

@@ -17,10 +17,10 @@
       <sourceFolder url="file://$MODULE_DIR$/NetworkClient/NetworkRequestQueue.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/NetworkClient/NetworkClient.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/viewControllers/ComicDetailViewController.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/marvel-view/viewControllers/ComicsTableViewController.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/viewControllers/ComicsTableViewCell.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/marvel-view/viewControllers/ComicsTableViewController.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/marvel-view/viewControllers/ComicsTableViewController.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/viewControllers/ComicsTableViewCell.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/marvel-view/viewControllers/ComicsTableViewController.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/viewControllers/ComicDetailViewController.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/placeholder.png" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/AppDelegate.h" isTestSource="false" />
@@ -31,12 +31,15 @@
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/Info.plist" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/main.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/Assets.xcassets" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/marvel-view/Base.lproj/LaunchScreen.storyboard" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/marvel-view/Base.lproj/Main.storyboard" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/schema/ComicsManager.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/schema/Comic+CoreDataClass.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/schema/ComicsManager.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/marvel-view/schema/Comic+CoreDataProperties.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/marvel-view/Base.lproj/LaunchScreen.storyboard" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/marvel-view/Base.lproj/Main.storyboard" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/marvel-view/client/MarvelApiClient.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/marvel-view/client/MarvelClient.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/marvel-view/client/MarvelClient.m" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/.gitignore" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Podfile" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Pods/Target Support Files/Pods-marvel-view/Pods-marvel-view.debug.xcconfig" isTestSource="false" />

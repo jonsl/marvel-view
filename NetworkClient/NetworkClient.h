@@ -12,7 +12,7 @@
 
 -(instancetype)init;
 
--(void)addRequest:(NetworkRequest*)request;
+-(void)queueRequest:(NetworkRequest*)request;
 
 @property (nonatomic, strong) NSString* remoteHostName;
 

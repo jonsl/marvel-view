@@ -42,7 +42,7 @@
 
 }
 
--(void)addRequest:(NetworkRequest*)request {
+-(void)queueRequest:(NetworkRequest*)request {
     [self.queue addOperation:request];
 }
 
