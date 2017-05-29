@@ -1,14 +1,15 @@
 //
-//  NetworkRequestQueue.m
-//  NetworkClient
+//  ApiRequestQueue.m
+//  ApiClient
 //
 //  Created by Jonathan Slater on 13/05/2017.
 //  Copyright © 2017 Jonathan Slater. All rights reserved.
 //
 
-#import "NetworkRequestQueue.h"
+#import "ApiRequestQueue.h"
+#import "ApiRequest.h"
 
-@implementation NetworkRequestQueue
+@implementation ApiRequestQueue
 
 -(instancetype)init {
     if ((self = [super init])) {
@@ -26,11 +27,11 @@
 
 -(void)addOperation:(NSOperation*)op {
 
-    NSParameterAssert([op isKindOfClass:[NetworkRequest class]]);
+    NSParameterAssert([op isKindOfClass:[ApiRequest class]]);
 
     [super addOperation:op];
 
-    ((NetworkRequest*) op).queue = self;
+    ((ApiRequest*) op).queue = self;
 }
 
 @end

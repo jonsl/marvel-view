@@ -8,13 +8,15 @@
 
 #import "AppDelegate.h"
 #import "ComicsTableViewController.h"
-#import "ComicsManager.h"
+#import "ModelManager.h"
 #import "Comic+CoreDataProperties.h"
 #import <AsyncImageView/AsyncImageView.h>
 #import "Extensions.h"
 #import "ComicsTableViewCell.h"
 
-@interface ComicsTableViewController()<NSFetchedResultsControllerDelegate>
+static NSString const* kMarvelBaseUrl = @"https://gateway.marvel.com";
+
+@interface ComicsTableViewController()<NSFetchedResultsControllerDelegate, Observer>
 
 @property (readonly, nonatomic) NSManagedObjectContext* mainManagedObjectContext;
 
@@ -27,8 +29,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDataNotification:) name:kNewDataNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(asyncImageLoadDidFinishNotification:) name:AsyncImageLoadDidFinish object:nil];
+    [[ModelManager sharedInstance] addObserver:self];
 
     NSFetchRequest* fetchRequest = [Comic fetchRequest];
     [fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"onSaleDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]]];
@@ -37,7 +38,7 @@
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:self.mainManagedObjectContext
                                                                           sectionNameKeyPath:nil
-                                                                                   cacheName:nil];//@"Root"];
+                                                                                   cacheName:nil];
     self.fetchedResultsController.delegate = self;
 
     NSError* error = nil;
@@ -47,19 +48,12 @@
         NSLog(@"viewDidLoad: performFetch error: %@", [error description]);
     }
 
-    [[ComicsManager sharedInstance] clearData:&error];
-    if (error) {
-        NSLog(@"main clear error: %@", [error description]);
-        return;
-    }
+    [[ModelManager sharedInstance] clearData];
 
-    NSUInteger comicsCount = [ComicsManager sharedInstance].comicsCount;
+    NSUInteger comicsCount = [ModelManager sharedInstance].comicsCount;
     if (comicsCount == 0) {
-
-        [[ComicsManager sharedInstance] updateRequestsForRow:0];
-
+        [[ModelManager sharedInstance] requestComicWithOffset:0];
     }
-
 }
 
 -(void)viewDidUnload {
@@ -72,22 +66,12 @@
 }
 
 -(void)dealloc {
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    [[ModelManager sharedInstance] removeObserver:self];
 }
 
 -(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)newDataNotification:(NSNotification*)notification {
-    NSParameterAssert([NSThread isMainThread]);
-
-    if ([[notification name] isEqualToString:kNewDataNotification]) {
-
-    }
 }
 
 -(NSManagedObjectContext*)mainManagedObjectContext {
@@ -97,21 +81,9 @@
     return context;
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView {
-//    NSArray *visibleCells = [self.tableView visibleCells];
-//    [visibleCells enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//        MyTableViewCell *cell = (MyTableViewCell *)obj;
-//        NSString *url = ...;
-//        [cell showImageURL:url];
-//    }];
-}
-
--(void)asyncImageLoadDidFinishNotification:(NSNotification*)notification {
-    [self.tableView setNeedsDisplay];
-}
-
 -(void)configureCell:(ComicsTableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
-    Comic* info = [_fetchedResultsController objectAtIndexPath:indexPath];
+    NSParameterAssert([[_fetchedResultsController objectAtIndexPath:indexPath] isKindOfClass:[Comic class]]);
+    Comic* info = (Comic*) [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.title.text = info.title;
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterLongStyle];
@@ -136,6 +108,31 @@
         asyImage.showActivityIndicator = YES;
         [cell.thumbnail addSubview:asyImage];
     }
+}
+
+#pragma mark - Observer
+
+-(void)notify {
+    NSLog(@"received update");
+}
+
+-(void)notifyWithError:(NSError*)error {
+    NSString* message = [NSString stringWithFormat:@"%@:%@", error.localizedDescription, error.userInfo];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Network Error"
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction* action) {
+
+                                                   [alert dismissViewControllerAnimated:YES completion:nil];
+
+                                               }];
+
+    [alert addAction:ok];
+
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -191,7 +188,7 @@
     [self configureCell:(ComicsTableViewCell*) cell atIndexPath:indexPath];
 
     // request more data if needed
-    [[ComicsManager sharedInstance] updateRequestsForRow:(int) indexPath.row];
+    [[ModelManager sharedInstance] requestComicWithOffset:(int) indexPath.row];
 }
 
 -(UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {

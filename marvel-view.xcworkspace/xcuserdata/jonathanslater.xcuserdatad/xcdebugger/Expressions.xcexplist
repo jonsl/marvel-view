@@ -6,7 +6,7 @@
          contextName = "-[ComicsTableViewController newDataNotification:]:ComicsTableViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "ComicsManager">
+               value = "ModelManager">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

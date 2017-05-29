@@ -1,13 +1,13 @@
 //
-//  NetworkRequestQueue.h
-//  NetworkClient
+//  ApiRequestQueue.h
+//  ApiClient
 //
 //  Created by Jonathan Slater on 13/05/2017.
 //  Copyright © 2017 Jonathan Slater. All rights reserved.
 //
 
-#import "NetworkRequest.h"
+#import <Foundation/Foundation.h>
 
-@interface NetworkRequestQueue : NSOperationQueue
+@interface ApiRequestQueue : NSOperationQueue
 
 @end
